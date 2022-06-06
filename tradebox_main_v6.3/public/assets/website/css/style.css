@@ -979,14 +979,14 @@ output {
   font-weight: 600;
 }
 .table-bordered {
-  border: 1px solid #2e2f32;
+  border: 1px solid #ebe4f6;
 }
 .table thead th {
-  border-bottom: 1px solid #2e2f32;
+  border-bottom: 1px solid #ebe4f6;
 }
 .table-bordered td,
 .table-bordered th {
-  border: 1px solid #2e2f32;
+  border: 1px solid #ebe4f6;
 }
 .table td,
 .table th {

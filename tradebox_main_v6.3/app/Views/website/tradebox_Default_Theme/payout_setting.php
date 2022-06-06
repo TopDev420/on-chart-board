@@ -1,5 +1,5 @@
 <div class="payout-content">
-    <div class="container mt-4 mb-4">
+    <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <!-- alert message -->

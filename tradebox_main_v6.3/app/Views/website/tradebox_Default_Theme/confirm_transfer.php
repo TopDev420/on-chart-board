@@ -4,22 +4,7 @@
           <?php 
               $data = json_decode($v->data);
           ?>
-
-            <?php  $data = json_decode($v->data); ?>
-            <div class="col-lg-6 offset-lg-3 form-content">
-              <?php if ($session->get('message') != null) {  ?>
-           <div class="alert alert-info alert-dismissable">
-              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-              <?php echo $session->get('message'); ?>
-           </div>
-           <?php } ?>
-           <?php if ($session->get('exception') != null) {  ?>
-           <div class="alert alert-danger alert-dismissable">
-              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-              <?php echo $session->get('exception'); ?>
-           </div>
-           <?php } ?>
-
+          <div class="col-lg-6 offset-lg-3 form-content">
               <div class="confirm-transfer form-design">
                   <?php   $att = array('name'=>'verify', 'id'=>'transfer_confirm'); echo form_open('#',$att); ?>
                   <dl class="row">

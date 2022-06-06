@@ -76,7 +76,7 @@
                                 <?php
                                 $path = 'app/Modules/';
                                 $map  = directory_map($path);
-                                $def_mods = ['Account','Auth','CMS','Common','Addon','Exchange','Finance','Gourl','Package','Payeer','Paypal','Paystack','Setting','Stripe','System_user','User','Website', 'Bank', 'Coinpayment', 'Token', 'Trade', 'Phone', 'Report'];
+                                $def_mods = ['Account','Auth','CMS','Common','Addon','Exchange','Finance','Gourl','Package','Payeer','Paypal','Paystack','Setting','Stripe','System_user','User','Website', 'Bank', 'Coinpayment', 'Token', 'Trade', 'Phone'];
                                 if (is_array($map))
                                 //extract each directory 
                                 foreach ($map as $key => $value) {

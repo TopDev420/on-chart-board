@@ -4,7 +4,7 @@
     </div>
     <div class="container text-center">
         <div class="author-avatar">
-            <img src="<?php echo $user_info->image?IMAGEPATH.$user_info->image:base_url("/public/assets/images/icons/user.png") ?>" alt="<?php echo esc($user_info->first_name); ?>">
+            <img src="<?php echo esc($user_info->image)==''?base_url("public/assets/images/icons/user.png"):esc(base_url($user_info->image)) ?>" alt="<?php echo esc($user_info->first_name); ?>">
         </div>
         <div class="row">
             <div class="col-md-6 offset-md-3 form-design">

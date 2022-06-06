@@ -6,9 +6,9 @@ class HomeController extends BaseController
 {
     public function index()
     {
-
         $cat_id             = $this->common_model->findById('web_category', array('slug' => "home", 'status' => 1)); 
         $data['slider']     = $this->common_model->findAll('web_slider', array('status' => 1), 'id', 'desc');
+
         $data['article']    = $this->common_model->get_all('web_article',array('cat_id' => @$cat_id->cat_id), 'position_serial', 'asc', 12,0, '');
         $data['coin']       = $this->common_model->get_all('dbt_cryptocoin', array('show_home' => 1), 'coin_position', 'asc', 12, 0, '');
 
@@ -189,10 +189,11 @@ class HomeController extends BaseController
         $data['coin_markets']   = $this->common_model->findAll('dbt_market', array('status' => 1), 'id','asc');
         $data['market_history'] = $this->common_model->findById('dbt_market', array('symbol' => $coin_symbol[1]));
         $data['coin_pairs']     = $this->common_model->findAll('dbt_coinpair', array('status' => 1),  'id','desc');
-
+        $cat_id                 = $this->web_model->catidBySlug('notice');
+        $data['notice']         = $this->common_model->get_all('web_article', array('cat_id' => $cat_id->cat_id),'article_id', 'desc', 3, 0);
         $data['market_details'] = $this->common_model->findById('dbt_coinpair', array('symbol' => $this->market_symbol, 'status' => 1));
 
-        @$cat_id                = $this->web_model->catidBySlug('exchange');
+        @$cat_id = $this->web_model->catidBySlug('exchange');
         $data['article']        = $this->web_model->article(@$cat_id->cat_id);
         $data['news']           = $this->db->table('web_news')->select("*")->orderBy('article_id', 'desc')->limit(7)->get()->getResult();
         $data['news_cat']       = $this->db->table('web_category')->select("*")->where('slug', 'news')->get()->getRow();
@@ -203,6 +204,159 @@ class HomeController extends BaseController
 
         return view('website/'.$this->templte_name->name.'/exchange_theme', $data);
     }
+
+    //chart api function satart
+    public function config()
+    {
+
+        $test = array(
+            "supports_search" => true,
+            "supports_group_request" => false,
+            "supports_marks" => true,
+            "supports_timescale_marks" => true,
+            "supports_time" => true,
+            "exchanges" => [array(
+                "value" => "Tradebox",
+                "name" => "Tradebox",
+                "desc" => "Tradebox"
+            ) ],
+            "supported_resolutions" => ["1","1D", "2D", "3D", "W", "3W", "M", "6M"]
+        );
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($test, JSON_UNESCAPED_UNICODE);
+        exit;
+
+    }
+
+    public function symbols()
+    {
+
+        $symbol    = $this->request->getGet('symbol', FILTER_SANITIZE_STRING);
+        $data = array(
+            "name"            => $symbol?$symbol:"LEZ_USDT", //this symbol are show in chart and pass as a paramiter
+            "exchange-traded" => "Tradebox",
+            "exchange-listed" => "Tradebox",
+            "timezone"        => "Asia/Singapore",
+            "minmov"          => 1,
+            "minmov2"         => 0,
+            "pointvalue"      => 1,
+            "session"         => "0930-1630",
+            "has_intraday"    => false,
+            "has_no_volume"   => false,
+            "description"     => "Tradebox Inc.",
+            "type"            => "stock",
+
+            "supported_resolutions" => ["1","1D", "2D", "3D", "W", "3W", "M", "6M"],
+            "pricescale"            => 100,
+            "ticker"                => $symbol?$symbol:"LEZ_USDT"
+        );
+       
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    private function getPair()
+    {
+        return $this->market_symbol;
+    }
+
+    public function search()
+    {
+        $data = array();
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        exit;
+
+    }
+
+    public function time()
+    {
+        $data = array();
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    public function symbol_info()
+    {
+        $data = array();
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    public function history()
+    {
+
+      $market_symbol = $this->request->getGet('symbol', FILTER_SANITIZE_STRING);
+      $from          = date("Y-m-d", $this->request->getGet('from', FILTER_SANITIZE_STRING));
+      $to            = date("Y-m-d", $this->request->getGet('to', FILTER_SANITIZE_STRING));
+      $coinhistory   = $this->db->table('dbt_coinhistory')->select('*')->where('market_symbol', $market_symbol)->where('date >=', $from)->where('date <=', $to)->orderBy('date', 'asc')->get()->getResult();
+
+
+      $id     = [];
+      $time     = [];
+      $open     = [];
+      $high     = [];
+      $low      = [];
+      $close    = [];
+      $volume   = [];
+
+
+      foreach ($coinhistory as $key => $value) {
+
+          $timestamp = strtotime($value->date);
+          
+          array_push($id, $value->id);
+          array_push($time, $timestamp);
+          array_push($open, number_format($value->open, 2, '.', ''));
+          array_push($high, number_format($value->price_high_24h, 2, '.', ''));
+          array_push($low, number_format($value->price_low_24h, 2, '.', ''));
+          array_push($close, number_format($value->close, 2, '.', ''));
+          array_push($volume,  number_format($value->volume_1h, 0, '.', ''));
+      }
+
+        $generatedArray = ['t' => $time, 'o' => $open, 'h' => $high, 'l' => $low, 'c' => $close, 'v' => $volume, 's' => "ok"];
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($generatedArray, JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    public function quotes()
+    {
+
+        $data = array();
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        exit;
+
+    }
+
+    public function marks()
+    {
+
+        $data = [];
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        exit;
+
+    }
+
+    public function timescale_marks()
+    {
+
+        $data = [];
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+    //chart api function end
 
     public function balances()
     {
@@ -697,8 +851,6 @@ class HomeController extends BaseController
 
                         $result = $this->common_model->save_return_id('dbt_verify', $varify_data);
 
-                        $this->session->setFlashdata('message', 'Verification code sent to your email!');
-
                         return  redirect()->to(base_url('withdraw-confirm/'.$result));
 
                     } else {
@@ -955,7 +1107,6 @@ class HomeController extends BaseController
                         'data'          => json_encode($transfar)
                     );
 
-                    $this->session->setFlashdata('message', "Verification Code Sent To Your Email!");
                     $result = $this->common_model->save_return_id('dbt_verify', $varify_data);
                     return redirect()->to(base_url('transfer-confirm/'.$result));
 
@@ -1800,6 +1951,16 @@ class HomeController extends BaseController
 
                                 $this->common_model->save('dbt_coinhistory', $coinhistory);
 
+                                // save trading history for chart display
+                                $coinhistory_detail = array(
+                                    'coin_symbol'       => $last_exchange->currency_symbol,
+                                    'market_symbol'     => $last_exchange->market_symbol,
+                                    'price'             => $sellexchange->bid_price,
+                                    'total_coin_supply' => @$buyer_complete_qty_log+@$total_coin_supply->complete_qty,
+                                    'date'              => $open_date
+                                );
+
+                                $this->common_model->save('dbt_coinhistory_detail', $coinhistory_detail);
                             }
                             //Order running
 
@@ -2243,7 +2404,18 @@ class HomeController extends BaseController
                                     'date'              => $open_date,
                                 );
 
-                                $this->common_model->save('dbt_coinhistory', $coinhistory);                                
+                                $this->common_model->save('dbt_coinhistory', $coinhistory);  
+                                
+                                // save trading history for chart display
+                                $coinhistory_detail = array(
+                                    'coin_symbol'       => $last_exchange->currency_symbol,
+                                    'market_symbol'     => $last_exchange->market_symbol,
+                                    'price'             => $last_exchange->bid_price,
+                                    'total_coin_supply' => @$seller_complete_qty_log+@$total_coin_supply->complete_qty,
+                                    'date'              => $open_date
+                                );
+
+                                $this->common_model->save('dbt_coinhistory_detail', $coinhistory_detail);
                             }
                             //Order running
                         }
@@ -2380,7 +2552,7 @@ class HomeController extends BaseController
     {
         $market_symbol = $this->request->getGet('market', FILTER_SANITIZE_STRING);
 
-        $sql = "SELECT *, SUM(`bid_qty_available`) as total_qty, SUM(`bid_qty_available`*`bid_price`) as total_price FROM dbt_biding WHERE (`status`=2 OR `status` = 3) AND `market_symbol`='".$market_symbol."'  AND `bid_type`='BUY' GROUP BY `dbt_biding`.`bid_price` ORDER BY `dbt_biding`.`bid_price` DESC LIMIT 10";
+        $sql = "SELECT *, SUM(`bid_qty_available`) as total_qty, SUM(`bid_qty_available`*`bid_price`) as total_price FROM dbt_biding WHERE (`status`=2 OR `status` = 3) AND `market_symbol`='".$market_symbol."'  AND `bid_type`='BUY' GROUP BY `dbt_biding`.`bid_price`,`market_symbol`, `bid_type`, `bid_price` ORDER BY `dbt_biding`.`bid_price` asc LIMIT 10";
         $trades = $this->db->query($sql, [])->getResult();
 
         echo json_encode(array('trades' => $trades));
@@ -2390,7 +2562,7 @@ class HomeController extends BaseController
     {
         $market_symbol = $this->request->getGet('market', FILTER_SANITIZE_STRING);
 
-        $sql = "SELECT *, SUM(`bid_qty_available`) as total_qty, SUM(`bid_qty_available`*`bid_price`) as total_price FROM dbt_biding WHERE (`status`=2 OR `status`=3) AND `market_symbol`='".$market_symbol."' AND `bid_type`='SELL' GROUP BY `dbt_biding`.`bid_price` ORDER BY `dbt_biding`.`bid_price` DESC LIMIT 10";
+        $sql = "SELECT *, SUM(`bid_qty_available`) as total_qty, SUM(`bid_qty_available`*`bid_price`) as total_price FROM dbt_biding WHERE (`status`=2 OR `status`=3) AND `market_symbol`='".$market_symbol."' AND `bid_type`='SELL' GROUP BY `dbt_biding`.`bid_price`,`market_symbol`, `bid_type`, `bid_price` ORDER BY `dbt_biding`.`bid_price` ASC LIMIT 10";
         $trades = $this->db->query($sql, [])->getResult();
 
         echo json_encode(array('trades' => $trades));
@@ -2430,6 +2602,20 @@ class HomeController extends BaseController
         $low24              = $this->db->table('dbt_coinhistory')->selectMin('last_price')->where('market_symbol', $market_symbol)->where('date >=',$twentyHoursPreviousDate)->where('date <=', $current_date)->get()->getRow();
         $openingTrade24     = $this->db->table('dbt_coinhistory')->select('*')->where('market_symbol', $market_symbol)->where('date >=',$twentyHoursPreviousDate)->where('date <=', $current_date)->get()->getRow();
 
+        $data           = array();
+        $interval       = $this->request->getGet('interval', FILTER_SANITIZE_STRING) * 60;
+        $limit          = 500;
+
+        $coinhistory    = $this->db->table('dbt_coinhistory_detail')->selectMin('price', 'low')->selectMax('price', "high")->selectMin('date', 'open_date')->selectMax('date', 'close_date')->select('substring_index(group_concat(cast(price as DOUBLE) order by date), trim(","), 1 ) as "open"')->select('substring_index(group_concat(cast(price as DOUBLE) order by date desc), trim(","), 1 ) as "close"')->select('FLOOR(UNIX_TIMESTAMP(date)/' . $interval . ') as "timekey"')->where('market_symbol', $market_symbol)->groupBy('timekey')->orderBy('id', 'asc')->limit($limit, 0)->get()->getResult();
+
+        foreach ($coinhistory as $key => $value) {
+            $timestamp = strtotime($value->open_date);
+            
+            $string['x'] = $timestamp * 1000;
+            $string['y'] = [$value->open*1, $value->high*1,$value->low*1,$value->close*1];
+            array_push($data, $string);
+        }
+
         echo json_encode(
             
             array(
@@ -2443,6 +2629,7 @@ class HomeController extends BaseController
                 'tradehistory'          => @$tradehistory,
                 'available_buy_coin'    => @$availablebuycoin,
                 'available_sell_coin'   => @$availablesellcoin,
+                'update_candle_data'    => $data
             )
         );
     }
@@ -2466,16 +2653,20 @@ class HomeController extends BaseController
 
         $string  = [];
 
-        $market_symbol = $this->request->getGet('market', FILTER_SANITIZE_STRING);
+        $market_symbol = $this->request->getGet('symbol', FILTER_SANITIZE_STRING);
+        $interval = $this->request->getGet('interval', FILTER_SANITIZE_STRING) * 60;
+        $limit = $this->request->getGet('limit');
 
-        $coinhistory   = $this->db->table('dbt_coinhistory')->select('date')->selectSum('open')->selectSum('price_high_24h')->selectSum(' price_low_24h')->selectSum('close')->where('market_symbol', $market_symbol)->groupBy('DATE(date)')->groupBy('HOUR(date)')->groupBy('MINUTE(date)')->limit(1000,0)->orderBy('date', 'asc')->get()->getResult(); 
+        // $coinhistory   = $this->db->table('dbt_coinhistory')->select('date')->selectSum('open')->selectSum('price_high_24h')->selectSum(' price_low_24h')->selectSum('close')->where('market_symbol', $market_symbol)->groupBy('DATE(date)')->groupBy('HOUR(date)')->groupBy('MINUTE(date)')->limit(1000,0)->orderBy('date', 'asc')->get()->getResult(); 
 
+        $coinhistory   = $this->db->table('dbt_coinhistory_detail')->selectMin('price', 'low')->selectMax('price', "high")->selectMin('date', 'open_date')->selectMax('date', 'close_date')->select('substring_index(group_concat(cast(price as DOUBLE) order by date), trim(","), 1 ) as "open"')->select('substring_index(group_concat(cast(price as DOUBLE) order by date desc), trim(","), 1 ) as "close"')->select('FLOOR(UNIX_TIMESTAMP(date)/' . $interval . ') as "timekey"')->where('market_symbol', $market_symbol)->groupBy('timekey')->orderBy('id', 'asc')->limit($limit, 0)->get()->getResult();
 
         foreach ($coinhistory as $key => $value) {
+            $timestamp = strtotime($value->open_date);
 
-            $timestamp = strtotime($value->date);
-            $string['x'] = $value->date;
-            $string['y'] = [$value->open,$value->price_high_24h,$value->price_low_24h,$value->close];
+            // $string['x'] = $value->open_date;
+            $string['x'] = $timestamp * 1000;
+            $string['y'] = [$value->open*1, $value->high*1,$value->low*1,$value->close*1];
             array_push($data, $string);
         }
 
@@ -3782,4 +3973,48 @@ class HomeController extends BaseController
     }
 
     //--------------------------------------------------------------------
+
+    /*
+    |----------------------------
+    | Get test trade data
+    | 2022/03/08
+    | @author: Eugene
+    |----------------------------
+    */
+    public function generate_random_trade() {
+        $now = "2021-01-01 00:00:00";
+        $timestamp = strtotime($now);
+        $price = 0.06666;
+        // $price = 1.42180919;
+
+        for($i = 1; $i < 10000; $i++) {
+            $rand_date = rand(10, 50);
+            $timestamp = $timestamp + $rand_date;
+
+            $date = date('Y-m-d H:i:s', $timestamp);
+
+            $coin_symbol = 'ETH';
+            $market_symbol = 'ETH_BTC';
+
+            // $price = $price - rand()/getrandmax()*0.05-0.01;
+            // $rand_price = rand()/getrandmax()*0.05-0.01;
+
+            $last_price = rand(4000, 8000) / 100000;
+
+            $total = 25025.08000000;
+
+            $data = array(
+                'coin_symbol' => $coin_symbol,
+                'market_symbol' => $market_symbol,
+                'price' => $last_price,
+                'total_coin_supply' => $total,
+                'date' => $date
+            );
+
+            $this->common_model->save('dbt_coinhistory_detail', $data);
+        }
+
+        echo "done!";
+    }
+    //-------------------------------------------------------------------
 }

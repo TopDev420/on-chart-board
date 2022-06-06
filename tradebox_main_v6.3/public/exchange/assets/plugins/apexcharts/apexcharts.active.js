@@ -1,86 +1,49 @@
-var options = {
-    series: [{
-        data: [{
-            x: new Date(1538778600000),
-            y: [0,0, 0,0]
-        }]
-    }],
-    chart: {
-        type: 'candlestick',
-        height: 485,
-        fontFamily: '"Poppins", sans-serif',
-        foreColor: '#8e8e8e',
-        toolbar: {
-            show: false,
+//  get url paramiter
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split("=");
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
         }
-    },
-    xaxis: {
-        type: 'datetime',
-        labels: {
-            style: {
-                fontSize: '11px',
-            }
-        },
-        axisBorder: {
-            show: false,
-        },
-        axisTicks: {
-            show: true,
-            color: '#797e81',
-        },
-    },
-    yaxis: {
-        tooltip: {
-            enabled: true,
-        },
-        labels: {
-            style: {
-                fontSize: '11px',
-            }
-        },
-        axisBorder: {
-            show: true,
-            color: 'rgba(255,255,255,0.05)',
-        },
-        axisTicks: {
-            show: true,
-            color: '#797e81',
-        }
-    },
-    grid: {
-        show: true,
-        borderColor: 'rgba(255,255,255,0.05)',
-        position: 'back',
-        xaxis: {
-            lines: {
-                show: true
-            }
-        },
-        yaxis: {
-            lines: {
-                show: true
-            }
-        },
-        padding: {
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0
-        },
-    },
-    responsive: [
-        {
-            breakpoint: 1920,
-            options: {
-                chart: {
-                    redrawOnParentResize: false,
-                    height: 450,
-                },
-            }
-        }
-    ]
+    }
 };
 
-var updatechartdata = new ApexCharts(document.querySelector("#chart_div"), options);
-updatechartdata.render();
+// draw chart
+var market = getUrlParameter('market');
+var interval = 5; // real
+// var interval = '5m'; // test
 
+var candlestickStream = new CandlestickStream(market, interval, true);
+candlestickStream.start();
+
+$('.control .range').on('click', function () {
+    $('.range').removeClass('active');
+    $(this).addClass('active');
+    $('.control .sub-range').removeClass('active');
+
+    interval = $(this).data('range') * 1; // real
+    // interval = $(this).text().toLowerCase(); // test
+
+    var candlestickStream = new CandlestickStream(market, interval, true);
+    candlestickStream.start();
+});
+
+$('.control .sub-range').on('click', function () {
+    $('.control .sub-range').removeClass('active');
+    $('.range').removeClass('active');
+    $(this).addClass('active');
+    $('.dropdown').addClass('active');
+
+    $('.control .dropdown').html($(this).text() + ' <i class="fa fa-sort-down"></i>');
+
+    interval = $(this).data('range') * 1; // real
+    // interval = $(this).text().toLowerCase(); // test
+
+    var candlestickStream = new CandlestickStream(market, interval, true);
+    candlestickStream.start();
+});

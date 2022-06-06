@@ -47,7 +47,7 @@ class UserController extends BaseController
 
         $page_number      = (!empty($this->request->getGet('page'))?$this->request->getGet('page'):1);
         $data['users']    = $this->common_model->get_all('dbt_user', array('verified' => 3), 'id','asc',20,($page_number-1)*20);
-        $total            = $this->common_model->countRow('dbt_user', array('verified' => 3));
+        $total            = $this->common_model->countRow('dbt_user');
         $data['pager']    = $this->pager->makeLinks($page_number, 20, $total);
 
         $data['content'] = $this->BASE_VIEW . '\user\pending_user_verification_list';

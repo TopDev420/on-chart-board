@@ -19,7 +19,6 @@
 <script src="<?php echo BASEPATH.'/assets/dist/js/popper.min.js' ?>"></script>
 <script src="<?php echo BASEPATH.'/assets/plugins/bootstrap/js/bootstrap.min.js' ?>"></script>
 <script src="<?php echo BASEPATH.'/assets/plugins/perfect-scrollbar/dist/perfect-scrollbar.min.js' ?>"></script>
-
 <!-- Third Party Scripts(used by this page)-->
 <?php if($segment3 != 'dashboard'){?>
 <script src="<?php echo BASEPATH.'/assets/plugins/chartJs/Chart.min.js' ?>"></script>
@@ -48,8 +47,6 @@
 <?php } ?>
 <!--Page Scripts(used by all page)-->
 <script src="<?php echo BASEPATH.'/assets/js/custom-new.js' ?>" type="text/javascript"></script>
-
-
 
 </div>
 </div>

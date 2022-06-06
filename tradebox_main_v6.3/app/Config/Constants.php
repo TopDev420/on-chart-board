@@ -82,7 +82,8 @@ if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] 
   $protocol = 'http://';
 }
 
-$dirname = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
+$dirname = '/';
+// $dirname = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/'); // for Linux
 $root = $protocol . $_SERVER['HTTP_HOST'] . $dirname;
 
 defined('BASESEURL') || define('BASESEURL',$root);

@@ -191,7 +191,7 @@ class ExchangeController extends BaseController
                 );
 
             }
-            
+
             $data['title']   = 'Coin List';
             $data['content'] = $this->BASE_VIEW.'\cryptocoin\form';
             return $this->template->admin_layout($data);

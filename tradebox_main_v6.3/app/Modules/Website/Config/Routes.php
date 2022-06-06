@@ -75,6 +75,7 @@
 		$subroutes->add('buy', 'HomeController::buy');
 		$subroutes->add('sell', 'HomeController::sell');
 		$subroutes->add('balance-search', 'HomeController::balance_search');
+		$subroutes->add('rand-test', 'HomeController::generate_random_trade');
 
 		$subroutes->add('installer', 'InstallerController::index');
 		$subroutes->add('remove_installer', 'InstallerController::remove_installer');

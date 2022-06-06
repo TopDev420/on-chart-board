@@ -46,12 +46,12 @@ class Lic
     private $purchase_key;
     private $product_key = '22673650';
     private $licence     = 'standard';
-    private $product_version = '6.3';
+    private $product_version = '6.2';
     private $log_path    = null;
     private $check_days  = array(9, 10, 11);
     private $api_domain  = 'secure.bdtask.com';
     private $api_url     = 'https://secure.bdtask.com/alpha/class.licence.php';
-    private $whitelist   = '{license_key}';
+    private $whitelist   = '12ca17b49a-6d16ab695d-49960de588-6f32aa4e40-6f32aa4e40';
 
     public function __construct()
     {
@@ -192,7 +192,34 @@ class Lic
 
     private function html($product_key = null)
     {
-		//clear
+        if (isset($_POST['purchase_key']) && ($_POST['purchase_key'] != null) && $this->filterPurchaseKey($_POST['purchase_key'])) { 
+
+            if ($data = $this->response($_POST['purchase_key'])) {
+
+                if($data['status'] === TRUE){
+                    $this->message = "Purchase successfully!";
+                    $this->product_key = $data['product_key']; 
+                    $this->fileWrite($_POST['purchase_key']);
+                    $this->updateFile($data['whitelist'], $data['product_key']);
+                    $_SESSION['response'] = false;
+                } else {
+                    $this->message = "Invalid purchase key! <br>Contact <i><a href='http://bdtask.com/#contact' target='_blank' style='color:#f5f5f5'>bdtask.com</a></i>";
+                }
+            } else {
+                $this->message = "Server error occurs! please try another time.<br>Contact <i><a href='http://bdtask.com/#contact' target='_blank' style='color:#f5f5f5'>bdtask.com</a></i>";
+            }
+        }
+
+      $security = \Config\Services::security();
+
+        echo "<form action=\"#\" method=\"post\" style=\"z-index:2147483647;background:maroon;width:100%;position:fixed;bottom:0;left:0;border-top:4px solid #D0D0D0;box-shadow:0 0 8px #D0D0D0;\"> 
+        <input type='hidden' name='". $security->getCSRFTokenName()."' value='". $security->getCSRFHash()."'>
+        <div style=\"padding:50px;text-align:center;\">
+        <h4 style=\"text-align:center;color:white;padding:0\">$this->message</h4>
+        <input type=\"text\" name=\"purchase_key\" placeholder=\"Enter purchase key\" style=\"width:60%;height:36px;padding:0 10px\"/>
+        <input type=\"submit\" value=\"Submit\" style=\"width:20%;height:38px;padding:0 10px\"/>
+        </div>
+        </form>"; 
     }
 
 

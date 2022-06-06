@@ -1,40 +1,55 @@
-obj   = JSON.parse(BDTASK.phrase());
+obj = JSON.parse(BDTASK.phrase());
 theme = JSON.parse(BDTASK.theme());
 
-$(function($) {
+$(function () {
+    // Time interval control dropdown display and hide
+    $('.chart-content .control .dropdown').on('mouseover', function () {
+        $(this).css('color', '#00b746');
+        $('.chart-content .control .range-dropdown').show();
+    });
 
-"use strict";
+    $('.chart-content .control .range-dropdown').on('mouseleave', function () {
+        $('.chart-content .control .dropdown').css('color', '#8e8e8e');
+        $('.chart-content .control .range-dropdown').hide();
+    });
+
+    $('.chart-content .range-dropdown .close').on('click', function () {
+        $('.chart-content .control .range-dropdown').hide();
+    });
+});
+$(function ($) {
+    "use strict";
     done();
     done1();
     done2();
     done01();
     done02();
 
-    if($('#chartTab').length){
-       document.getElementById('chartTab').style.display = 'none';
+    if ($('#chartTab').length) {
+        document.getElementById('chartTab').style.display = 'none';
     }
 
     //tradingview initial off
-    $('#original').on('click', function(){
+    $('#original').on('click', function () {
 
         $("#tradingview").removeClass("active");
         $("#original").addClass("active");
-        $("#tv_chart_container").css("display","none");
-        $("#chart_div").css("display","block");          
+        $("#tv_chart_container").css("display", "none");
+        $("#chart_div").css("display", "block");
     });
 
-    $('#tradingview').on('click', function(){
+    $('#tradingview').on('click', function () {
 
         $("#original").removeClass("active");
         $("#tradingview").addClass("active");
-        $("#chart_div").css("display","none");
-        $("#tv_chart_container").css("display","block");
+        $("#chart_div").css("display", "none");
+        $("#tv_chart_container").css("display", "block");
 
     });
 
-    if ($('#tv_chart_container').length){
+    if ($('#tv_chart_container').length) {
 
-       document.getElementById('tv_chart_container').style.display = 'none';
+        document.getElementById('tv_chart_container').style.display = 'none';
     }
 
     //get url paramiter
@@ -52,24 +67,24 @@ $(function($) {
         }
     };
     var market = getUrlParameter('market');
-    
+
     var symbolMarket = market.replace(/_/g, "");
     //chart-data-script
     var market_details = JSON.parse(BDTASK.market_details());
 
     ///amchart start here
-    if ($('#chart_div').length){
+    // if ($('#chart_div').length) {
 
-        $.getJSON(BDTASK.getSiteAction('tradecharthistory?market=' + market), function(response) {
-          updatechartdata.updateSeries([{
-            name: 'Market',
-            data: response
-          }])
-        });
-    }
+    //     $.getJSON(BDTASK.getSiteAction('tradecharthistory?market=' + market), function (response) {
+    //         chart.updateSeries([{
+    //             name: 'Market',
+    //             data: response
+    //         }])
+    //     });
+    // }
     ///amchart end here
     //message chat start
-    $("#message_form").on("submit", function(event) {
+    $("#message_form").on("submit", function (event) {
         event.preventDefault();
         var inputdata = $("#message_form").serialize();
 
@@ -78,7 +93,7 @@ $(function($) {
             type: "post",
             data: inputdata,
             dataType: "json",
-            success: function(data) {
+            success: function (data) {
                 if (data != 1) {
                     if (data.userInfo.image == null) {
 
@@ -86,7 +101,7 @@ $(function($) {
 
                     } else {
 
-                        var imagePath = "public/"+data.userInfo.image;
+                        var imagePath = "public/" + data.userInfo.image;
                     }
 
                     $("#live_chat_list").append("<div class='message'><img class='avatar' src=" + BDTASK.getSiteAction(imagePath) + " data-toggle='tooltip' data-placement='top' data-original-title='Keith'><div class='text-main'><div class='d-flex align-items-center justify-content-between'><span class='time-ago'>" + data.messageInfo.datetime + "</span></div><div class='text-group'><div class='text'><p>" + data.messageInfo.message + "</p></div></div></div></div>");
@@ -95,7 +110,7 @@ $(function($) {
                     allert_warning('warning', "Please Login Again!");
                 }
             },
-            error: function(data) {
+            error: function (data) {
                 $("#live_chat").append("<pre>" + data + "</pre>");
             }
 
@@ -104,35 +119,35 @@ $(function($) {
     //message chat end
 
     function done() {
-        setTimeout(function() {
+        setTimeout(function () {
             updates_buy();
             done();
         }, 1500);
     }
 
     function done01() {
-        setTimeout(function() {
+        setTimeout(function () {
             updates_sell();
             done01();
         }, 2000);
     }
 
     function done1() {
-        setTimeout(function() {
+        setTimeout(function () {
             marketupdates();
             done1();
         }, 5000);
     }
 
     function done2() {
-        setTimeout(function() {
+        setTimeout(function () {
             messageChat();
             done2();
         }, 1800);
     }
 
     function done02() {
-        setTimeout(function() {
+        setTimeout(function () {
             tradehistoryupdates();
             done02();
         }, 10000);
@@ -140,24 +155,24 @@ $(function($) {
 
     //Message Ajax load
     function messageChat() {
-        $.getJSON(BDTASK.getSiteAction("jsonMessageStream"), function(data) {
+        $.getJSON(BDTASK.getSiteAction("jsonMessageStream"), function (data) {
             $("#live_chat_list").empty();
-            $.each(data, function(index, element) {
+            $.each(data, function (index, element) {
                 if (element.image == null) {
                     var imagePath = 'public/assets/images/icons/user.png';
                 } else {
-                    var imagePath = "public/"+element.image;
+                    var imagePath = "public/" + element.image;
                 }
                 $("#live_chat_list").prepend("<div class='message'><img class='avatar' src=" + BDTASK.getSiteAction(imagePath) + " data-toggle='tooltip' data-placement='top' data-original-title='Keith'><div class='text-main'><div class='d-flex align-items-center justify-content-between'><span class='time-ago'>" + element.datetime + "</span></div><div class='text-group'><div class='text'><p>" + element.message + "</p></div></div></div></div>");
             });
         });
-    } 
+    }
     //Market coinpair load 
     function marketupdates() {
 
-        $.getJSON(BDTASK.getSiteAction('market-streamer?market=' + market), function(data) {
-            
-            $.each(data.marketstreamer, function(index, element) {
+        $.getJSON(BDTASK.getSiteAction('market-streamer?market=' + market), function (data) {
+
+            $.each(data.marketstreamer, function (index, element) {
 
                 $('#price_' + element.market_symbol).text(parseFloat(element.last_price).toFixed(8));
                 $('#volume_' + element.market_symbol).text(Math.round(element.total_coin_supply * 100) / 100);
@@ -184,15 +199,15 @@ $(function($) {
 
     //Buy Orders load
     function updates_buy() {
-        $.getJSON(BDTASK.getSiteAction('streamer-buy?market=' + market), function(data) {
+        $.getJSON(BDTASK.getSiteAction('streamer-buy?market=' + market), function (data) {
             $("#buytrades").empty();
-            $.each(data.trades, function(index, element) {
+            $.each(data.trades, function (index, element) {
                 var tradeType = "BAD_REQUEST";
                 var cls = "";
                 if (element.bid_type == 'BUY') {
                     tradeType = "BUY";
                     cls = "positive";
-                    $("#buytrades").append("<tr><td class='buy_price coin positive'>" + parseFloat(element.bid_price).toFixed(8) + "</td><td class='buy_qty price'>" + parseFloat(element.total_qty).toFixed(6) + "</td><td class='change'>" + parseFloat(parseFloat(element.total_price).toString()).toFixed(6) + "</td></tr>");
+                    $("#buytrades").prepend("<tr><td class='buy_price coin positive'>" + parseFloat(element.bid_price).toFixed(8) + "</td><td class='buy_qty price'>" + parseFloat(element.total_qty).toFixed(6) + "</td><td class='change'>" + parseFloat(parseFloat(element.total_price).toString()).toFixed(6) + "</td></tr>");
                 } else {
 
                     tradeType = "BAD_REQUEST";
@@ -211,10 +226,10 @@ $(function($) {
 
     //Sell Orders load
     function updates_sell() {
-        $.getJSON(BDTASK.getSiteAction('streamer-sell?market=' + market), function(data) {
+        $.getJSON(BDTASK.getSiteAction('streamer-sell?market=' + market), function (data) {
             $("#selltrades").empty();
 
-            $.each(data.trades, function(index, element) {
+            $.each(data.trades, function (index, element) {
 
                 var tradeType = "BAD_REQUEST";
                 var cls = "";
@@ -239,21 +254,35 @@ $(function($) {
 
     //Historycal data load
     function tradehistoryupdates() {
+        var interval = 5;
+        if ($('.range.dropdown').hasClass('active')) {
+            $('.sub-range').each(function () {
+                if ($(this).hasClass('active')) {
+                    interval = $(this).data('range');
+                }
+            });
+        } else {
+            $('.range').each(function () {
+                if ($(this).hasClass('active')) {
+                    interval = $(this).data('range');
+                }
+            });
+        }
 
-        $.getJSON(BDTASK.getSiteAction('tradehistory?market=' + market), function(data) {
+        $.getJSON(BDTASK.getSiteAction('tradehistory?market=' + market + '&interval=' + interval), function (data) {
             $("#tradeHistory").empty();
             var lastprice;
-            if(data.secondLast){
+            if (data.secondLast) {
 
-                var secondLastPrice =  data.secondLast.last_price;
+                var secondLastPrice = data.secondLast.last_price;
             } else {
 
-                var secondLastPrice =  0;
+                var secondLastPrice = 0;
             }
             if (data.coinhistory) {
 
-                if(data.openingTrade24 == null){
-                    
+                if (data.openingTrade24 == null) {
+
                     var openingTrade24Lastprice = 0;
 
                 } else {
@@ -262,13 +291,13 @@ $(function($) {
                 }
 
                 //binance formula for price change start
-                var price_change_percent = ((data.coinhistory.last_price - openingTrade24Lastprice)/data.coinhistory.last_price)*100;
+                var price_change_percent = ((data.coinhistory.last_price - openingTrade24Lastprice) / data.coinhistory.last_price) * 100;
 
 
 
                 //binance formula for price change end
 
-                if(price_change_percent < 0){
+                if (price_change_percent < 0) {
 
                     $(".coin-change-price").removeClass("positive");
                     $(".coin-change-price").addClass("negative");
@@ -281,26 +310,26 @@ $(function($) {
 
                 if (data.coinhistory.last_price > secondLastPrice) {
 
-                    $(".price_updown").html("<span class='contract-price status-buy'>"+parseFloat(data.coinhistory.last_price).toFixed(8)+"<i class='feather-corner-right-down arrow-icon ms-1'></i><i class='feather-corner-right-up arrow-icon ms-1'></i></span>");
+                    $(".price_updown").html("<span class='contract-price status-buy'>" + parseFloat(data.coinhistory.last_price).toFixed(8) + "<i class='feather-corner-right-down arrow-icon ms-1'></i><i class='feather-corner-right-up arrow-icon ms-1'></i></span>");
 
                 } else if (data.coinhistory.last_price < secondLastPrice) {
 
-                    $(".price_updown").html("<span class='contract-price status-sell'>"+parseFloat(data.coinhistory.last_price).toFixed(8)+"<i class='feather-corner-right-down arrow-icon ms-1'></i><i class='feather-corner-right-up arrow-icon ms-1'></i></span>");
+                    $(".price_updown").html("<span class='contract-price status-sell'>" + parseFloat(data.coinhistory.last_price).toFixed(8) + "<i class='feather-corner-right-down arrow-icon ms-1'></i><i class='feather-corner-right-up arrow-icon ms-1'></i></span>");
 
                 } else {
 
-                    $(".price_updown").html("<span class='contract-price status-primary'>"+parseFloat(data.coinhistory.last_price).toFixed(8)+"<i class='feather-corner-right-down arrow-icon ms-1'></i><i class='feather-corner-right-up arrow-icon ms-1'></i></span>");
+                    $(".price_updown").html("<span class='contract-price status-primary'>" + parseFloat(data.coinhistory.last_price).toFixed(8) + "<i class='feather-corner-right-down arrow-icon ms-1'></i><i class='feather-corner-right-up arrow-icon ms-1'></i></span>");
                 }
 
-                if (typeof(data.coinhistory.last_price) !== 'undefined' || typeof(data.coinhistory.last_price) != 'null') {
+                if (typeof (data.coinhistory.last_price) !== 'undefined' || typeof (data.coinhistory.last_price) != 'null') {
 
-                   if (data.coinhistory.last_price > secondLastPrice) {
+                    if (data.coinhistory.last_price > secondLastPrice) {
 
                         $(".coin-last-price").removeClass("status-primary");
                         $(".coin-last-price").removeClass("negative");
                         $(".coin-last-price").addClass("positive");
 
-                    }  else if (data.coinhistory.last_price < secondLastPrice) {
+                    } else if (data.coinhistory.last_price < secondLastPrice) {
 
                         $(".coin-last-price").removeClass("status-primary");
                         $(".coin-last-price").removeClass("positive");
@@ -316,30 +345,30 @@ $(function($) {
                     $(".coin-last-price").html(parseFloat(last_price).toFixed(6).toString());
 
                 };
-                if (typeof(data.coinhistory.volume_24h) !== 'undefined' || typeof(data.coinhistory.volume_24h) != 'null') {
+                if (typeof (data.coinhistory.volume_24h) !== 'undefined' || typeof (data.coinhistory.volume_24h) != 'null') {
                     var volume_24h = data.coinhistory.volume_24h;
                     $(".total_volume").html(parseFloat(volume_24h).toFixed(6).toString());
 
                 };
-                if (typeof(data.coinhistory.price_change_24h) !== 'undefined' || typeof(data.coinhistory.price_change_24h) != 'null') {
+                if (typeof (data.coinhistory.price_change_24h) !== 'undefined' || typeof (data.coinhistory.price_change_24h) != 'null') {
 
                     $(".coin-change-price").html(price_change_percent.toFixed(8).toString() + '%');
                 };
-                if (typeof(data.high24.last_price) !== 'undefined' || typeof(data.high24.last_price) != 'null') {
+                if (typeof (data.high24.last_price) !== 'undefined' || typeof (data.high24.last_price) != 'null') {
                     var last_price = data.high24.last_price || 0;
                     $(".coin-price-high").html(parseFloat(last_price).toFixed(6).toString());
                 };
-                if (typeof(data.low24.last_price) !== 'undefined' || typeof(data.low24.last_price) != 'null') {
+                if (typeof (data.low24.last_price) !== 'undefined' || typeof (data.low24.last_price) != 'null') {
                     var last_price = data.low24.last_price || 0;
                     $(".coin-price-low").html(parseFloat(last_price).toFixed(6).toString());
                 };
-                if (typeof(data.volume_24h.volume_24h) !== 'undefined' || typeof(data.volume_24h.volume_24h) != 'null') {
+                if (typeof (data.volume_24h.volume_24h) !== 'undefined' || typeof (data.volume_24h.volume_24h) != 'null') {
                     var volume_24h = data.volume_24h.volume_24h || 0;
                     $(".coin-volume").html(parseFloat(volume_24h).toFixed(6).toString());
                 };
             };
 
-            $.each(data.tradehistory, function(index, element) {
+            $.each(data.tradehistory, function (index, element) {
 
                 var tradeType = "BAD_REQUEST";
                 var cls = "";
@@ -358,7 +387,7 @@ $(function($) {
                 }
                 var d = new Date(element.success_time);
 
-                $("#tradeHistory").prepend("<tr><td class='treade-size " + cls + "'>" + parseFloat(element.complete_qty).toFixed(6) + "</td><td class='price " + cls + "'>" + parseFloat(element.bid_price).toFixed(6) + "</td><td class='time'>"+element.successtime+"</td></tr>");
+                $("#tradeHistory").prepend("<tr><td class='treade-size " + cls + "'>" + parseFloat(element.complete_qty).toFixed(6) + "</td><td class='price " + cls + "'>" + parseFloat(element.bid_price).toFixed(6) + "</td><td class='time'>" + element.successtime + "</td></tr>");
 
                 //Max Row Show From Stemar
                 var maxTableRow = 18;
@@ -368,22 +397,26 @@ $(function($) {
                 }
 
             });
+
+            // updating candlestick chart
+            var candlestickStream = new CandlestickStream(market, interval, false);
+            candlestickStream.start();
         });
     }
     //Market Price From Market place
 
-    $.getJSON(BDTASK.getSiteAction('coin-pairs'), function(data) {
+    $.getJSON(BDTASK.getSiteAction('coin-pairs'), function (data) {
 
-        $.each(data.coin_pairs, function(index, element) {
-            var cryptolistfrom  = element.market_symbol;
-            var cryptolistto    = element.currency_symbol;
-    
-            $.getJSON("https://min-api.cryptocompare.com/data/price?fsym=" + cryptolistto + "&tsyms=" + cryptolistfrom + "&api_key=" + BDTASK.crypto_api(), function(result) {
-                
+        $.each(data.coin_pairs, function (index, element) {
+            var cryptolistfrom = element.market_symbol;
+            var cryptolistto = element.currency_symbol;
+
+            $.getJSON("https://min-api.cryptocompare.com/data/price?fsym=" + cryptolistto + "&tsyms=" + cryptolistfrom + "&api_key=" + BDTASK.crypto_api(), function (result) {
+
                 if (result[Object.keys(result)[0]] == 'Error') {
                     $('#price_' + element.market_symbol).text(market_details.initial_price);
                 } else if (parseFloat($('#price_' + cryptolistto + '_' + cryptolistfrom).text()) <= 0) {
-                     $('#price_' + cryptolistto + '_' + cryptolistfrom).text(parseFloat(result[Object.keys(result)[0]]).toFixed(8));
+                    $('#price_' + cryptolistto + '_' + cryptolistfrom).text(parseFloat(result[Object.keys(result)[0]]).toFixed(8));
                 };
             });
         });
@@ -392,7 +425,7 @@ $(function($) {
     var cryptolistfrom = market_details.currency_symbol;
     var cryptolistto = market_details.market_symbol;
 
-    $.getJSON("https://min-api.cryptocompare.com/data/price?fsym=" + cryptolistfrom + "&tsyms=" + cryptolistto + "&api_key=" + BDTASK.crypto_api(), function(result) {
+    $.getJSON("https://min-api.cryptocompare.com/data/price?fsym=" + cryptolistfrom + "&tsyms=" + cryptolistto + "&api_key=" + BDTASK.crypto_api(), function (result) {
 
 
         var rate = 1;
@@ -411,13 +444,13 @@ $(function($) {
 
     //buy and sell price percent slide start
     $("body").on("slide keyup keypress blur change", "#ex13", function (slideEvt) {
-            
-        var balance_buy = $("#balance_buy").text();
-        var buypricing  = $("#buypricing").val();
-        var percentage  = $("#ex13").val();
 
-        var buyAmt  = (+balance_buy * +percentage)/100;
-        var ableQty = (buyAmt/buypricing);
+        var balance_buy = $("#balance_buy").text();
+        var buypricing = $("#buypricing").val();
+        var percentage = $("#ex13").val();
+
+        var buyAmt = (+balance_buy * +percentage) / 100;
+        var ableQty = (buyAmt / buypricing);
 
         $('#buyamount').val(parseFloat(ableQty.toFixed(8)).toString());
         $('#buyamount').trigger('change');
@@ -426,8 +459,8 @@ $(function($) {
     $("body").on("slide keyup keypress blur change", "#ex14", function (slideEvt) {
 
         var balance_sell = $("#balance_sell").text();
-        var percentage   = $("#ex14").val();
-        var buyAmt       = (+balance_sell * +percentage)/100;
+        var percentage = $("#ex14").val();
+        var buyAmt = (+balance_sell * +percentage) / 100;
 
         $('#sellamount').val(parseFloat(buyAmt.toFixed(8)).toString());
         $('#sellamount').trigger('change');
@@ -435,7 +468,7 @@ $(function($) {
     //buy and sell price percent slide end
 
     //Buy Sell market/Initial price
-    $('body').on('click', '.buy_price, .sell_price', function() {
+    $('body').on('click', '.buy_price, .sell_price', function () {
         var buy_price = $(this).text();
         $("#buypricing").val(buy_price);
         $("#sellpricing").val(buy_price);
@@ -444,7 +477,7 @@ $(function($) {
         $('#buyamount').trigger('change');
     });
 
-    $('body').on('click', '.buy_qty', function() {
+    $('body').on('click', '.buy_qty', function () {
         var buy_qty = $(this).text();
         $("#buyamount").val(buy_qty);
         $("#sellamount").val(buy_qty);
@@ -459,7 +492,7 @@ $(function($) {
         feetxt = feetxt.toFixed(8);
         feetxt2 = feetxt2.toFixed(8);
 
-        $("#sellfees").text(parseFloat(feetxt2).toString()+' '+market_details.market_symbol + ' (' + BDTASK.sellfees() + '%)');
+        $("#sellfees").text(parseFloat(feetxt2).toString() + ' ' + market_details.market_symbol + ' (' + BDTASK.sellfees() + '%)');
         $('#sellfeesval').val(parseFloat(feetxt).toString());
 
         var total = 1 + +feetxt;
@@ -470,7 +503,7 @@ $(function($) {
         $('#sellamount').trigger('change');
     });
 
-    $('body').on('click', '.sell_qty', function() {
+    $('body').on('click', '.sell_qty', function () {
         var buy_qty = $(this).text();
         $("#buyamount").val(buy_qty);
         $("#sellamount").val(buy_qty);
@@ -496,7 +529,7 @@ $(function($) {
         $('#buyamount').trigger('change');
     });
 
-    $("#buypricing").on("keyup", function(event) {
+    $("#buypricing").on("keyup", function (event) {
         event.preventDefault();
 
         var buypricing = parseFloat($("#buypricing").val()) || 1;
@@ -517,7 +550,7 @@ $(function($) {
 
     });
 
-    $("#buypricing").on("change", function(event) {
+    $("#buypricing").on("change", function (event) {
         event.preventDefault();
 
         var buypricing = parseFloat($("#buypricing").val()) || 1;
@@ -537,7 +570,7 @@ $(function($) {
         $('#buytotalval').val(parseFloat(total.toFixed(8)).toString());
     });
 
-    $("#buyamount").on("keyup", function(event) {
+    $("#buyamount").on("keyup", function (event) {
         event.preventDefault();
 
         var buypricing = parseFloat($("#buypricing").val()) || 1;
@@ -557,7 +590,7 @@ $(function($) {
         $('#buytotalval').val(parseFloat(total.toFixed(8)).toString());
     });
 
-    $("#buyamount").on("change", function(event) {
+    $("#buyamount").on("change", function (event) {
         event.preventDefault();
 
         var buypricing = parseFloat($("#buypricing").val()) || 1;
@@ -577,15 +610,15 @@ $(function($) {
         $('#buytotalval').val(parseFloat(total.toFixed(8)).toString());
     });
 
-    $("#buyform").on("submit", function(event) {
+    $("#buyform").on("submit", function (event) {
         event.preventDefault();
 
-        var inputdata   = $("#buyform").serialize();
-        var amount      = $('#buyamount').val();
-        var price       = $('#buypricing').val();
+        var inputdata = $("#buyform").serialize();
+        var amount = $('#buyamount').val();
+        var price = $('#buypricing').val();
 
         $("#buyButton").html("<i class='fas fa-circle-notch fa-spin'></i> wait...");
-        $('#buyButton').attr('disabled','disabled');
+        $('#buyButton').attr('disabled', 'disabled');
 
         if (amount <= 0 || price <= 0) {
 
@@ -595,7 +628,7 @@ $(function($) {
             toastr.options.positionClass = 'toast-top-right';
             toastr.warning('Please enter greater than 0 value');
 
-            $("#buyButton").html('Buy '+market_details.market_symbol);
+            $("#buyButton").html('Buy ' + market_details.market_symbol);
             $('#buyButton').removeAttr('disabled');
 
             return false;
@@ -606,7 +639,7 @@ $(function($) {
             url: BDTASK.getSiteAction('buy'),
             type: "post",
             data: inputdata,
-            success: function(data) {
+            success: function (data) {
 
                 if (data == 0) {
 
@@ -614,7 +647,7 @@ $(function($) {
                     toastr.options.positionClass = 'toast-top-right';
                     toastr.error('Trade does not submited');
 
-                    $("#buyButton").html('Buy '+market_details.market_symbol);
+                    $("#buyButton").html('Buy ' + market_details.market_symbol);
                     $('#buyButton').removeAttr('disabled');
                     //toastr alert end 
 
@@ -624,7 +657,7 @@ $(function($) {
                     toastr.options.positionClass = 'toast-top-right';
                     toastr.warning('Please Login/Register!');
 
-                    $("#buyButton").html('Buy '+market_details.market_symbol);
+                    $("#buyButton").html('Buy ' + market_details.market_symbol);
                     $('#buyButton').removeAttr('disabled');
                     //toastr alert end 
 
@@ -634,7 +667,7 @@ $(function($) {
                     toastr.options.positionClass = 'toast-top-right';
                     toastr.warning('You have not sufficient balance!');
 
-                    $("#buyButton").html('Buy '+market_details.market_symbol);
+                    $("#buyButton").html('Buy ' + market_details.market_symbol);
                     $('#buyButton').removeAttr('disabled');
                     //toastr alert end 
 
@@ -644,7 +677,7 @@ $(function($) {
                     toastr.options.positionClass = 'toast-top-right';
                     toastr.success('Your request successfully done');
 
-                    $("#buyButton").html('Buy '+market_details.market_symbol);
+                    $("#buyButton").html('Buy ' + market_details.market_symbol);
                     $('#buyButton').removeAttr('disabled');
                     //toastr alert end 
 
@@ -659,7 +692,7 @@ $(function($) {
                 var cryptolistfrom = market_details.currency_symbol;
                 var cryptolistto = market_details.market_symbol;
 
-                $.getJSON("https://min-api.cryptocompare.com/data/price?fsym=" + cryptolistfrom + "&tsyms=" + cryptolistto + "&api_key=" + BDTASK.crypto_api(), function(result) {
+                $.getJSON("https://min-api.cryptocompare.com/data/price?fsym=" + cryptolistfrom + "&tsyms=" + cryptolistto + "&api_key=" + BDTASK.crypto_api(), function (result) {
 
                     var rate = 1;
                     if (result[Object.keys(result)[0]] == 'Error') {
@@ -678,7 +711,7 @@ $(function($) {
                     $('#buywithout_feesval').val(parseFloat(buywithout_feesval).toString());
                     var feetxt = (BDTASK.buyfees() / 100) * (buywithout_feesval);
                     feetxt = feetxt.toFixed(8);
-                    var fees = $("#buyfees").text(parseFloat(feetxt).toString()+' '+ market_details.market_symbol + ' (' + BDTASK.buyfees() + '%)');
+                    var fees = $("#buyfees").text(parseFloat(feetxt).toString() + ' ' + market_details.market_symbol + ' (' + BDTASK.buyfees() + '%)');
                     $('#buyfeesval').val(feetxt);
                     var total = +buywithout_feesval + +feetxt;
                     $("#buytotal").text(parseFloat(total.toFixed(8)).toString());
@@ -693,7 +726,7 @@ $(function($) {
                     var feetxt2 = (BDTASK.sellfees() / 100) * sellwithout_fees;
                     feetxt = feetxt.toFixed(8);
                     feetxt2 = feetxt2.toFixed(8);
-                    $("#sellfees").text(parseFloat(feetxt2).toString()+' '+ market_details.market_symbol + ' (' + BDTASK.sellfees() + '%)');
+                    $("#sellfees").text(parseFloat(feetxt2).toString() + ' ' + market_details.market_symbol + ' (' + BDTASK.sellfees() + '%)');
                     $('#sellfeesval').val(parseFloat(feetxt).toString());
 
                     var total = 1 + +feetxt;
@@ -702,14 +735,14 @@ $(function($) {
                     $('#selltotalval').val(parseFloat(total).toString());
                 });
             },
-            error: function(data) {
+            error: function (data) {
                 $(".buyloginMessage").prepend("<pre>" + data + "</pre>");
             }
         });
     });
 
     //Ajax Sell
-    $("#sellpricing").on("keyup", function(event) {
+    $("#sellpricing").on("keyup", function (event) {
         event.preventDefault();
 
         var sellpricing = parseFloat($("#sellpricing").val()) || 0;
@@ -725,7 +758,7 @@ $(function($) {
         feetxt = feetxt.toFixed(8);
         feetxt2 = feetxt2.toFixed(8);
 
-        $("#sellfees").text(parseFloat(feetxt2).toString()+' '+ market_details.market_symbol + ' (' + BDTASK.sellfees() + '%)');
+        $("#sellfees").text(parseFloat(feetxt2).toString() + ' ' + market_details.market_symbol + ' (' + BDTASK.sellfees() + '%)');
         $('#sellfeesval').val(parseFloat(feetxt).toString());
 
         var total = +sellamount + +feetxt;
@@ -734,7 +767,7 @@ $(function($) {
         $('#selltotalval').val(parseFloat(total).toString());
     });
 
-    $("#sellpricing").on("change", function(event) {
+    $("#sellpricing").on("change", function (event) {
         event.preventDefault();
 
         var sellpricing = parseFloat($("#sellpricing").val()) || 0;
@@ -750,7 +783,7 @@ $(function($) {
         feetxt = feetxt.toFixed(8);
         feetxt2 = feetxt2.toFixed(8);
 
-        $("#sellfees").text(parseFloat(feetxt2).toString()+' '+ market_details.market_symbol + ' (' + BDTASK.sellfees() + '%)');
+        $("#sellfees").text(parseFloat(feetxt2).toString() + ' ' + market_details.market_symbol + ' (' + BDTASK.sellfees() + '%)');
         $('#sellfeesval').val(parseFloat(feetxt).toString());
 
         var total = +sellamount + +feetxt;
@@ -759,7 +792,7 @@ $(function($) {
         $('#selltotalval').val(parseFloat(total).toString());
     });
 
-    $("#sellamount").on("keyup", function(event) {
+    $("#sellamount").on("keyup", function (event) {
         event.preventDefault();
         var sellpricing = parseFloat($("#sellpricing").val()) || 1;
         var sellamount = parseFloat($("#sellamount").val()) || 1;
@@ -774,7 +807,7 @@ $(function($) {
         feetxt = feetxt.toFixed(8);
         feetxt2 = feetxt2.toFixed(8);
 
-        $("#sellfees").text(parseFloat(feetxt2).toString()+' '+ market_details.market_symbol + ' (' + BDTASK.sellfees() + '%)');
+        $("#sellfees").text(parseFloat(feetxt2).toString() + ' ' + market_details.market_symbol + ' (' + BDTASK.sellfees() + '%)');
         $('#sellfeesval').val(parseFloat(feetxt).toString());
 
         var total = +sellamount + +feetxt;
@@ -783,7 +816,7 @@ $(function($) {
         $('#selltotalval').val(parseFloat(total).toString());
     });
 
-    $("#sellamount").on("change", function(event) {
+    $("#sellamount").on("change", function (event) {
         event.preventDefault();
         var sellpricing = parseFloat($("#sellpricing").val()) || 1;
         var sellamount = parseFloat($("#sellamount").val()) || 1;
@@ -798,7 +831,7 @@ $(function($) {
         feetxt = feetxt.toFixed(8);
         feetxt2 = feetxt2.toFixed(8);
 
-        $("#sellfees").text(parseFloat(feetxt2).toString()+' '+ market_details.market_symbol + ' (' + BDTASK.sellfees() + '%)');
+        $("#sellfees").text(parseFloat(feetxt2).toString() + ' ' + market_details.market_symbol + ' (' + BDTASK.sellfees() + '%)');
         $('#sellfeesval').val(parseFloat(feetxt).toString());
 
         var total = +sellamount + +feetxt;
@@ -807,15 +840,15 @@ $(function($) {
         $('#selltotalval').val(parseFloat(total).toString());
     });
 
-    $("#sellform").on("submit", function(event) {
+    $("#sellform").on("submit", function (event) {
         event.preventDefault();
 
-        var inputdata   = $("#sellform").serialize();
-        var amount      = $('#sellamount').val();
-        var price       = $('#sellpricing').val();
+        var inputdata = $("#sellform").serialize();
+        var amount = $('#sellamount').val();
+        var price = $('#sellpricing').val();
 
         $("#sellButton").html("<i class='fas fa-circle-notch fa-spin'></i> wait...");
-        $('#sellButton').attr('disabled','disabled');
+        $('#sellButton').attr('disabled', 'disabled');
 
 
         if (amount <= 0 || price <= 0) {
@@ -824,7 +857,7 @@ $(function($) {
             toastr.options.positionClass = 'toast-top-right';
             toastr.warning('Please enter greater than 0 value');
 
-            $("#sellButton").html("Sell "+market_details.currency_symbol);
+            $("#sellButton").html("Sell " + market_details.currency_symbol);
             $('#sellButton').removeAttr('disabled');
             //toastr alert end 
             return false;
@@ -833,14 +866,14 @@ $(function($) {
             url: BDTASK.getSiteAction('sell'),
             type: "post",
             data: inputdata,
-            success: function(data) {
+            success: function (data) {
                 if (data == 0) {
 
                     //toastr alert start 
                     toastr.options.positionClass = 'toast-top-right';
                     toastr.error('Trade does not submited');
 
-                    $("#sellButton").html("Sell "+market_details.currency_symbol);
+                    $("#sellButton").html("Sell " + market_details.currency_symbol);
                     $('#sellButton').removeAttr('disabled');
                     //toastr alert end 
 
@@ -850,7 +883,7 @@ $(function($) {
                     toastr.options.positionClass = 'toast-top-right';
                     toastr.warning('Please Login/Register!');
 
-                    $("#sellButton").html("Sell "+market_details.currency_symbol);
+                    $("#sellButton").html("Sell " + market_details.currency_symbol);
                     $('#sellButton').removeAttr('disabled');
                     //toastr alert end 
 
@@ -860,7 +893,7 @@ $(function($) {
                     toastr.options.positionClass = 'toast-top-right';
                     toastr.warning('You have not sufficient balance!');
 
-                    $("#sellButton").html("Sell "+market_details.currency_symbol);
+                    $("#sellButton").html("Sell " + market_details.currency_symbol);
                     $('#sellButton').removeAttr('disabled');
                     //toastr alert end 
 
@@ -871,7 +904,7 @@ $(function($) {
                     toastr.success('Your request successfully done');
                     //toastr alert end 
 
-                    $("#sellButton").html("Sell "+market_details.currency_symbol);
+                    $("#sellButton").html("Sell " + market_details.currency_symbol);
                     $('#sellButton').removeAttr('disabled');
 
                     var trade = JSON.parse(data);
@@ -885,7 +918,7 @@ $(function($) {
                 var cryptolistfrom = market_details.currency_symbol;
                 var cryptolistto = market_details.market_symbol;
 
-                $.getJSON("https://min-api.cryptocompare.com/data/price?fsym=" + cryptolistfrom + "&tsyms=" + cryptolistto + "&api_key=" + BDTASK.crypto_api(), function(result) {
+                $.getJSON("https://min-api.cryptocompare.com/data/price?fsym=" + cryptolistfrom + "&tsyms=" + cryptolistto + "&api_key=" + BDTASK.crypto_api(), function (result) {
                     var rate = 1;
                     if (result[Object.keys(result)[0]] == 'Error') {
                         rate = market_details.initial_price;
@@ -902,7 +935,7 @@ $(function($) {
                     $('#buywithout_feesval').val(parseFloat(buywithout_feesval).toString());
                     var feetxt = (BDTASK.buyfees() / 100) * (buywithout_feesval);
                     feetxt = feetxt.toFixed(8);
-                    var fees = $("#buyfees").text(parseFloat(feetxt).toString()+' '+ market_details.market_symbol + ' (' + BDTASK.buyfees() + '%)');
+                    var fees = $("#buyfees").text(parseFloat(feetxt).toString() + ' ' + market_details.market_symbol + ' (' + BDTASK.buyfees() + '%)');
                     $('#buyfeesval').val(feetxt);
                     var total = +buywithout_feesval + +feetxt;
                     $("#buytotal").text(parseFloat(total.toFixed(8)).toString());
@@ -918,7 +951,7 @@ $(function($) {
                     feetxt = feetxt.toFixed(8);
                     feetxt2 = feetxt2.toFixed(8);
 
-                    $("#sellfees").text(parseFloat(feetxt2).toString()+' '+ market_details.market_symbol + ' (' + BDTASK.sellfees() + '%)');
+                    $("#sellfees").text(parseFloat(feetxt2).toString() + ' ' + market_details.market_symbol + ' (' + BDTASK.sellfees() + '%)');
                     $('#sellfeesval').val(parseFloat(feetxt).toString());
                     var total = 1 + +feetxt;
                     var total2 = +sellwithout_fees + +feetxt2;
@@ -926,7 +959,7 @@ $(function($) {
                     $('#selltotalval').val(parseFloat(total).toString());
                 });
             },
-            error: function(data) {
+            error: function (data) {
                 $(".sellloginMessage").prepend("<pre>" + data + "</pre>");
             }
         });
@@ -957,7 +990,7 @@ $(function($) {
     }
 
     //Ajax Language Change start
-    $("body").on("click", ".french,.english", function(event) {
+    $("body").on("click", ".french,.english", function (event) {
         event.preventDefault();
 
         var inputdata = {};
@@ -968,20 +1001,20 @@ $(function($) {
             url: BDTASK.getSiteAction('langChange'),
             type: "post",
             data: inputdata,
-            success: function(result, status, xhr) {
+            success: function (result, status, xhr) {
                 location.reload();
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 location.reload();
             }
         });
     });
 });
 
-$(function() {
+$(function () {
     "use strict";
     var info = $('table tbody tr');
-    info.click(function() {
+    info.click(function () {
         var email = $(this).children().first().text();
         var password = $(this).children().first().next().text();
         var user_role = $(this).attr('data-role');
@@ -991,16 +1024,16 @@ $(function() {
         $('select option[value=' + user_role + ']').attr("selected", "selected");
     });
 
-    $('.footerHide').on('click', function() {
+    $('.footerHide').on('click', function () {
         $('#footer').hide();
     });
 
-    $('.footerShow').on('click', function() {
+    $('.footerShow').on('click', function () {
         $('#footer').show();
     });
 
     //get news details
-    $(".eachNews").on("click", function(event) {
+    $(".eachNews").on("click", function (event) {
 
         var postdata = {};
         postdata[BDTASK.csrf_token()] = BDTASK.csrf_hash();
@@ -1011,9 +1044,9 @@ $(function() {
             type: "post",
             data: postdata,
             dataType: "JSON",
-            success: function(data) {
+            success: function (data) {
                 if (data.article_image != "") {
-                    var newsimg = "public/"+data.article_image;
+                    var newsimg = "public/" + data.article_image;
                 } else {
                     var newsimg = "public/assets/images/icons/no-img.png";
                 }
@@ -1151,26 +1184,26 @@ function copyFunction() {
 }
 
 //market search js start
-function marketSearch() {   
+function marketSearch() {
 
-var activeid=$("#myTabContent1 div.active div").attr('id');
-var tableId = activeid.split('_');
+    var activeid = $("#myTabContent1 div.active div").attr('id');
+    var tableId = activeid.split('_');
 
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById(tableId[0]);
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }       
-  }
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById(tableId[0]);
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
 }
 //market search js end

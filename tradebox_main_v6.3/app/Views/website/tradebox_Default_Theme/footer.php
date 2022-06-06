@@ -1,6 +1,21 @@
 <footer class="footer">
     <div class="primary-footer">
         <div class="container">
+            <!-- <div class="row">
+                <div class="col-md-12">
+                    <div class="page-scroll back-top" data-section="#top">
+                        <i class="fas fa-chevron-up"></i>
+                    </div>
+                    <?php if ($social_link) { ?>                            
+                        <ul class="social-link tt-animate ltr mt-20">
+                            <?php foreach ($social_link as $key => $value) { ?>
+                                <li><a href="<?php echo htmlspecialchars_decode($value->link); ?>"><i class="fab fa-<?php echo esc($value->icon); ?>"></i></a></li>
+                            <?php } ?>
+                        </ul>
+                    <?php } ?>
+                </div>
+            </div>
+            <hr class="mt-15"> -->
             <div class="row justify-content-between">
                 <div class="col-md-4">
                     <div class="footer-logo">
@@ -79,7 +94,7 @@
     $request = \Config\Services::request();
     $home_menu = $request->uri->setSilent()->getSegment(1);
 ?>
-<script type="text/javascript" src="https://unpkg.com/default-passive-events"></script>
+<script src="<?php echo  BASEPATH.'assets/website/js/vendors.bundle.min.js'; ?>"></script>
 <?php if ($request->uri->setSilent()->getSegment(1) == '' || @$request->uri->setSilent()->getSegment(1) == 'coinmarket') { ?>
     <script src="<?php echo BASEPATH."assets/website/js/angular.min.js"; ?>"></script>
     <script src="<?php echo BASEPATH."assets/website/js/socket.io.js"; ?>"></script>
@@ -103,6 +118,5 @@
         if(!empty($session->get('exception'))) echo $session->get('exception'); 
     }
 ?>
-
 </body>
 </html>

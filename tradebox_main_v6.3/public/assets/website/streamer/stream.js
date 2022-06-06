@@ -1,13 +1,14 @@
-$(document).ready(function() {
-
+$(document).ready(function () {
 	var currentPrice = {};
 	var socket = io.connect('https://streamer.cryptocompare.com/');
 	//Format: {SubscriptionId}~{ExchangeName}~{FromSymbol}~{ToSymbol}
 	//Use SubscriptionId 0 for TRADE, 2 for CURRENT and 5 for CURRENTAGG
 	//For aggregate quote updates use CCCAGG as market
 	var subscription = ['5~CCCAGG~BTC~USD', '5~CCCAGG~ETH~USD', '5~CCCAGG~LTC~USD', '5~CCCAGG~DASH~USD', '5~CCCAGG~XMR~USD', '5~CCCAGG~NXT~USD', '5~CCCAGG~ETC~USD', '5~CCCAGG~DOGE~USD', '5~CCCAGG~ZEC~USD', '5~CCCAGG~BTS~USD'];
-	socket.emit('SubAdd', { subs: subscription });
-	socket.on("m", function(message) {
+	socket.emit('SubAdd', {
+		subs: subscription
+	});
+	socket.on("m", function (message) {
 		var messageType = message.substring(0, message.indexOf("~"));
 		var res = {};
 		if (messageType == CCC.STATIC.TYPE.CURRENTAGG) {
@@ -16,7 +17,7 @@ $(document).ready(function() {
 		}
 	});
 
-	var dataUnpack = function(data) {
+	var dataUnpack = function (data) {
 		var from = data['FROMSYMBOL'];
 		var to = data['TOSYMBOL'];
 		var fsym = CCC.STATIC.CURRENCY.getSymbol(from);
@@ -40,20 +41,17 @@ $(document).ready(function() {
 		displayData(currentPrice[pair], from, tsym, fsym);
 	};
 
-	var displayData = function(current, from, tsym, fsym) {
+	var displayData = function (current, from, tsym, fsym) {
 		console.log(current);
 		var priceDirection = current.FLAGS;
 		for (var key in current) {
 			if (key == 'CHANGE24HOURPCT') {
 				$('#' + key + '_' + from).text(' (' + current[key] + ')');
-			}
-			else if (key == 'LASTVOLUMETO' || key == 'VOLUME24HOURTO') {
+			} else if (key == 'LASTVOLUMETO' || key == 'VOLUME24HOURTO') {
 				$('#' + key + '_' + from).text(CCC.convertValueToDisplay(tsym, current[key]));
-			}
-			else if (key == 'LASTVOLUME' || key == 'VOLUME24HOUR' || key == 'OPEN24HOUR' || key == 'OPENHOUR' || key == 'HIGH24HOUR' || key == 'HIGHHOUR' || key == 'LOWHOUR' || key == 'LOW24HOUR') {
+			} else if (key == 'LASTVOLUME' || key == 'VOLUME24HOUR' || key == 'OPEN24HOUR' || key == 'OPENHOUR' || key == 'HIGH24HOUR' || key == 'HIGHHOUR' || key == 'LOWHOUR' || key == 'LOW24HOUR') {
 				$('#' + key + '_' + from).text(CCC.convertValueToDisplay(fsym, current[key]));
-			}
-			else {
+			} else {
 				$('#' + key + '_' + from).text(current[key]);
 			}
 		}
@@ -61,15 +59,13 @@ $(document).ready(function() {
 		$('#PRICE_' + from).removeClass();
 		if (priceDirection & 1) {
 			$('#PRICE_' + from).addClass("up");
-		}
-		else if (priceDirection & 2) {
+		} else if (priceDirection & 2) {
 			$('#PRICE_' + from).addClass("down");
 		}
 		if (current['PRICE'] > current['OPEN24HOUR']) {
 			$('#CHANGE24HOURPCT_' + from).removeClass();
 			$('#CHANGE24HOURPCT_' + from).addClass("up");
-		}
-		else if (current['PRICE'] < current['OPEN24HOUR']) {
+		} else if (current['PRICE'] < current['OPEN24HOUR']) {
 			$('#CHANGE24HOURPCT_' + from).removeClass();
 			$('#CHANGE24HOURPCT_' + from).addClass("down");
 		}

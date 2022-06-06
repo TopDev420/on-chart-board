@@ -399,21 +399,14 @@ if(path == "deposit"){
               for(var i=0;i<keys.length;i++){
                 var key = keys[i];
                 $("#GRAPH_"+key).text(result[key]);
-                $('#GRAPH_'+key).sparkline('html', {
-                	type:'line', 
-                	height:'40px', 
-                	lineWidth:1, 
-                	lineColor:'#35a947', 
-                	fillColor:false, 
-                	spotColor:'red',
-                },500);
+                $('#GRAPH_'+key).sparkline('html', {type:'line', height:'40px', lineWidth:1, lineColor:'#35a947', fillColor:false, spotColor:'red'} );
               }
             },
             error: function(xhr,status,error){
-              
+              //console.log(obj['no_data'][BDTASK.language()]);
             }
           });
-        });
+        }, 500);
     }
 	//coinmarket js end
 });

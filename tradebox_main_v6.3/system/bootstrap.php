@@ -36,7 +36,6 @@
  * @since      Version 4.0.0
  * @filesource
  */
-
 /*
  * ---------------------------------------------------------------
  * SETUP OUR PATH CONSTANTS
@@ -164,6 +163,7 @@ $env->load();
 
 // Always load the URL helper -
 // it should be used in 90% of apps.
+
 helper('url');
 
 /*

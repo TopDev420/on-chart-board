@@ -76,15 +76,10 @@
                      <?php } ?>
                   </ul>
                </li>
-
                <?php
                   }
-                     }
+                  }
                ?>
-               
-               <li>
-                  <a target="_blank" href="https://www.youtube.com/watch?v=HHwgLq5f1_Q&list=PLth9eDNSX3Ejfm-TBwT0Z3u1XFJIOwlcs&index=9"><i class="fas fa-file-video"></i>Tutorial</a>
-               </li>
                <li>
                   <a target="_blank" href="https://www.bdtask.com/contact.php"><i class="fa fa-question-circle"></i>Support</a>
                </li>

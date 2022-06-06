@@ -36,7 +36,6 @@
         <link href="<?php echo BASEPATH.'assets/website/css/custom.css' ?>" rel="stylesheet">
         <link href="<?php echo BASEPATH.'assets/js/sweetalert/sweetalert.css'?>" rel="stylesheet" type="text/css"/>
         <script src="<?php echo BASEPATH.'assets/website/js/jquery-3.5.1.min.js'?>"></script>
-        <script src="<?php echo BASEPATH.'assets/website/js/vendors.bundle.min.js'; ?>"></script>
 
         <script type='text/javascript' src="<?php echo base_url('Adapter/javascript') ?>"></script>
         <link type="text/css" href="<?php echo base_url('Adapter/css') ?>" rel="stylesheet"/>
@@ -44,7 +43,6 @@
         <script type="text/javascript">
              var path = '<?php echo $request->uri->setSilent()->getSegment(1); ?>';
         </script>
-
     </head>
     <body>
             <nav class="navbar navbar-expand-lg <?php echo esc($menu_cls) ?>">
@@ -62,6 +60,51 @@
                                 <a class="nav-link" href="<?php echo base_url("exchange?market=".@$query_pair->symbol) ?>"><?php echo display('exchange') ?></a>
                             </li>
 
+                                <?php
+                                  helper('filesystem');
+                                  $path       = 'app/Modules/';
+                                  $map        = directory_map($path);
+                                  $CUSTOMERMENU  = array();
+                                  
+                                  if (is_array($map) && sizeof($map) > 0) {
+                                      foreach ($map as $key => $value) {
+                                          $menu = str_replace("\\", '/', $path . $key . 'Config/Customer_menu.php');
+
+                                          if (file_exists(APPPATH . 'Modules/' . $key . '/Assets/data/env')|| file_exists(APPPATH . 'Modules/' . $key . '/assets/data/env')) {
+                                               @include($menu);
+                                          }
+                                      }
+                                  }
+                                  
+                                  $shortkeys = array_column($CUSTOMERMENU, 'order');
+                                  array_multisort($shortkeys, SORT_ASC, $CUSTOMERMENU);
+                                  
+                                  foreach ($CUSTOMERMENU as $module => $parent) {
+
+
+                                  if ($parent['status'] == 0) {
+                                  ?>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <?php echo trim($parent['parent']); ?>
+                                        </a>
+                                        
+                                    </li>
+                                <?php } else if ($parent['status'] == 1) { ?>
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="<?php echo base_url($parent['link']) ?>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <?php echo trim($parent['parent']); ?>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <?php
+                                                foreach ($parent['submenu'] as $key => $child) {
+                                                ?>
+                                            <a class="dropdown-item" href="<?php echo base_url($child['link']) ?>"><?php echo $child['name'] ?></a>
+                                            <?php } ?>
+                                        </div>
+                                    </li>
+                            <?php }} ?>                            
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <?php echo display('finance') ?>
@@ -85,51 +128,6 @@
                                     <a class="dropdown-item" href="<?php echo base_url('trade-history') ?>"><?php echo display('trade_history') ?></a>
                                 </div>
                             </li>
-
-                            <?php
-                                helper('filesystem');
-                                $path       = 'app/Modules/';
-                                $map        = directory_map($path);
-                                $CUSTOMERMENU  = array();
-                                  
-                                if(is_array($map) && sizeof($map) > 0) {
-                                    foreach ($map as $key => $value) {
-                                        $menu = str_replace("\\", '/', $path . $key . 'Config/Customer_menu.php');
-
-                                        if (file_exists(APPPATH . 'Modules/' . $key . '/Assets/data/env')|| file_exists(APPPATH . 'Modules/' . $key . '/assets/data/env')) {
-                                               @include($menu);
-                                        }
-                                    }
-                                }
-                                  
-                                $shortkeys = array_column($CUSTOMERMENU, 'order');
-                                array_multisort($shortkeys, SORT_ASC, $CUSTOMERMENU);
-                                  
-                                foreach ($CUSTOMERMENU as $module => $parent) {
-
-                                  if ($parent['status'] == 0) {
-                            ?>
-                                <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <?php echo trim($parent['parent']); ?>
-                                        </a>
-                                        
-                                </li>
-                            <?php } else if ($parent['status'] == 1) { ?>
-
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="<?php echo base_url($parent['link']) ?>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <?php echo trim($parent['parent']); ?>
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <?php
-                                                foreach ($parent['submenu'] as $key => $child) {
-                                                ?>
-                                            <a class="dropdown-item" href="<?php echo base_url($child['link']) ?>"><?php echo $child['name'] ?></a>
-                                            <?php } ?>
-                                        </div>
-                                    </li>
-                            <?php }} ?> 
 
                             <?php 
                                 if($session->get('user_id') != NULL){
@@ -176,25 +174,6 @@
                     <li class="active"><a href="<?php echo base_url() ?>"><?php echo display('home') ?></a></li>
                     
                     <li><a href="<?php echo base_url("exchange?market=".@$query_pair->symbol) ?>"><?php echo display('exchange') ?></a></li>
-                      
-                    <li>
-                        <a href="#" aria-expanded="false"><?php echo display('finance') ?><span class="fa arrow"></span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="<?php echo base_url('balances') ?>"><?php echo display('balance');?></a></li>
-                            <li><a href="<?php echo base_url('deposit') ?>"><?php echo display('deposit') ?></a></li>
-                            <li><a href="<?php echo base_url('withdraw') ?>"><?php echo display('withdraw') ?></a></li>
-                            <li><a href="<?php echo base_url('transfer') ?>"><?php echo display('transfer') ?></a></li>
-                            <li><a href="<?php echo base_url('transactions') ?>"><?php echo display('transection') ?></a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" aria-expanded="false"><?php echo display('trade') ?><span class="fa arrow"></span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="<?php echo base_url('open-order') ?>"><?php echo display('open_order') ?></a></li>
-                            <li><a href="<?php echo base_url('complete-order') ?>"><?php echo display('complete_order') ?></a></li>
-                            <li><a href="<?php echo base_url('trade-history') ?>"><?php echo display('trade_history') ?></a></li>
-                        </ul>
-                    </li>
                     <?php
                       helper('filesystem');
                       $path       = 'app/Modules/';
@@ -229,9 +208,27 @@
                                 <?php } ?>
                             </ul>
                         </li>
-                    <?php }} ?> 
-                    
+                    <?php }} ?>   
+                    <li>
+                        <a href="#" aria-expanded="false"><?php echo display('finance') ?><span class="fa arrow"></span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="<?php echo base_url('balances') ?>"><?php echo display('balance');?></a></li>
+                            <li><a href="<?php echo base_url('deposit') ?>"><?php echo display('deposit') ?></a></li>
+                            <li><a href="<?php echo base_url('withdraw') ?>"><?php echo display('withdraw') ?></a></li>
+                            <li><a href="<?php echo base_url('transfer') ?>"><?php echo display('transfer') ?></a></li>
+                            <li><a href="<?php echo base_url('transactions') ?>"><?php echo display('transection') ?></a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" aria-expanded="false"><?php echo display('trade') ?><span class="fa arrow"></span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="<?php echo base_url('open-order') ?>"><?php echo display('open_order') ?></a></li>
+                            <li><a href="<?php echo base_url('complete-order') ?>"><?php echo display('complete_order') ?></a></li>
+                            <li><a href="<?php echo base_url('trade-history') ?>"><?php echo display('trade_history') ?></a></li>
+                        </ul>
+                    </li>
                     <?php if($session->get('user_id') != NULL){?>
+
                     <li>
                         <a href="#" aria-expanded="false"><?php echo display('account') ?><span class="fa arrow"></span></a>
                         <ul aria-expanded="false">

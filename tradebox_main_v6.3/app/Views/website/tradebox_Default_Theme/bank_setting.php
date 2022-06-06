@@ -1,5 +1,5 @@
         <div class="payout-content">
-            <div class="container mt-4 mb-4">
+            <div class="container">
                 <div class="row">
                     
                     <div class="col-lg-6 offset-lg-3 form-content mt-4 mb-4">

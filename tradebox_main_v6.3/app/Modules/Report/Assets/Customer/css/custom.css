@@ -1,0 +1,53 @@
+/*
+ Customer script start
+*/
+
+/* Code here.. */
+
+/*
+ Customer script end
+*/
+
+/*-----------------------------------------*/
+
+/*
+ Backend script start
+*/
+
+.dt-button-background {
+    z-index: 0 !important;
+}
+
+.dt-button.buttons-html5 {
+    cursor: pointer !important;
+}
+
+#ajaxtable_filter {
+    display: inline-block;
+    float: right;
+}
+
+#ajaxtable_length {
+    width: 50%;
+    display: inline-block;
+}
+
+div.dt-buttons {
+    float: inherit;
+}
+.sapnP11{
+
+	padding: 11px !important;
+}
+
+.datePicker-icon{
+	background: transparent;
+    border: 1px solid #262d34;
+}
+
+.cheight{
+	height: 35px!important;
+}
+/*
+ Backend script end
+*/

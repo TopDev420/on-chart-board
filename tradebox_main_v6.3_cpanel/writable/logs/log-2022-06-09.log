@@ -1,0 +1,24 @@
+CRITICAL - 2022-06-09 13:44:25 --> Table 'tradebox.dbt_security' doesn't exist
+#0 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT *\nFROM `...')
+#1 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3\system\Database\BaseBuilder.php(1860): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3\app\Libraries\Recaptcha.php(27): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3\app\Modules\Website\Controllers\BaseController.php(72): app\Libraries\Recaptcha->__construct()
+#6 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3\system\CodeIgniter.php(899): App\Modules\Website\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#7 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3\system\CodeIgniter.php(407): CodeIgniter\CodeIgniter->createController()
+#8 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3\index.php(64): CodeIgniter\CodeIgniter->run()
+#10 {main}
+CRITICAL - 2022-06-09 14:26:39 --> Table 'tradebox.dbt_security' doesn't exist
+#0 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT *\nFROM `...')
+#1 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\Database\BaseBuilder.php(1860): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\app\Libraries\Recaptcha.php(27): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\app\Modules\Website\Controllers\BaseController.php(72): app\Libraries\Recaptcha->__construct()
+#6 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(899): App\Modules\Website\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#7 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(407): CodeIgniter\CodeIgniter->createController()
+#8 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\index.php(64): CodeIgniter\CodeIgniter->run()
+#10 {main}

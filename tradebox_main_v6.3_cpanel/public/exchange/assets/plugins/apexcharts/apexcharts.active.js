@@ -18,8 +18,8 @@ var market = getUrlParameter('market');
 var interval = 5; // real
 // var interval = '5m'; // test
 
-var candlestickStream = new CandlestickStream(market, interval, true);
-candlestickStream.start();
+// var candlestickStream = new CandlestickStream(market, interval, true);
+// candlestickStream.start();
 
 $('.control .range').on('click', function () {
     $('.range').removeClass('active');
@@ -29,8 +29,8 @@ $('.control .range').on('click', function () {
     interval = $(this).data('range') * 1; // real
     // interval = $(this).text().toLowerCase(); // test
 
-    var candlestickStream = new CandlestickStream(market, interval, true);
-    candlestickStream.start();
+    // var candlestickStream = new CandlestickStream(market, interval, true);
+    // candlestickStream.start();
 });
 
 $('.control .sub-range').on('click', function () {
@@ -44,6 +44,6 @@ $('.control .sub-range').on('click', function () {
     interval = $(this).data('range') * 1; // real
     // interval = $(this).text().toLowerCase(); // test
 
-    var candlestickStream = new CandlestickStream(market, interval, true);
-    candlestickStream.start();
+    // var candlestickStream = new CandlestickStream(market, interval, true);
+    // candlestickStream.start();
 });

@@ -250,3 +250,8 @@ table.table-bordered.dataTable tbody th, table.table-bordered.dataTable tbody td
   flex-wrap: wrap;
   align-items: center;
 }
+
+#chart {
+  height: 540px;
+  width: 95%;
+}

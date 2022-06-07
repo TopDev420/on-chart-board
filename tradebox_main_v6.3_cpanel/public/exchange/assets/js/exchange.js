@@ -1,551 +1,57 @@
 obj = JSON.parse(BDTASK.phrase());
 theme = JSON.parse(BDTASK.theme());
-const zoomingData = [
+const tradingData = [
   {
-    arg: 10,
-    y1: -12,
-    y2: 10,
-    y3: 32,
+    monthName: new Date(2021, 12, 1, 13, 14),
+    cost: 0.44422,
   },
   {
-    arg: 20,
-    y1: -32,
-    y2: 30,
-    y3: 12,
+    monthName: new Date(2022, 1, 1, 14, 15),
+    cost: 4.53269,
   },
   {
-    arg: 40,
-    y1: -20,
-    y2: 20,
-    y3: 30,
+    monthName: new Date(2022, 2, 1, 9, 22),
+    cost: 85.89,
   },
   {
-    arg: 50,
-    y1: -39,
-    y2: 50,
-    y3: 19,
+    monthName: new Date(2022, 3, 1, 9, 22),
+    cost: 0.323423,
   },
   {
-    arg: 60,
-    y1: -10,
-    y2: 10,
-    y3: 15,
+    monthName: new Date(2022, 4, 1, 9, 22),
+    cost: 5.9983,
   },
   {
-    arg: 75,
-    y1: 10,
-    y2: 10,
-    y3: 15,
+    monthName: new Date(2022, 5, 1, 9, 22),
+    cost: 7.25632,
   },
   {
-    arg: 80,
-    y1: 30,
-    y2: 50,
-    y3: 13,
+    monthName: new Date(2022, 6, 1, 9, 22),
+    cost: 4.23052,
   },
   {
-    arg: 90,
-    y1: 40,
-    y2: 50,
-    y3: 14,
+    monthName: new Date(2022, 7, 1, 9, 22),
+    cost: 3.12598,
   },
   {
-    arg: 100,
-    y1: 50,
-    y2: 90,
-    y3: 90,
+    monthName: new Date(2022, 8, 1, 9, 22),
+    cost: 4.53686,
   },
   {
-    arg: 105,
-    y1: 40,
-    y2: 175,
-    y3: 120,
+    monthName: new Date(2022, 9, 1, 9, 22),
+    cost: 6.23548,
   },
   {
-    arg: 110,
-    y1: -12,
-    y2: 10,
-    y3: 32,
+    monthName: new Date(2022, 10, 1, 9, 22),
+    cost: 8.259,
   },
   {
-    arg: 120,
-    y1: -32,
-    y2: 30,
-    y3: 12,
+    monthName: new Date(2022, 11, 1, 9, 22),
+    cost: 4.53069,
   },
   {
-    arg: 130,
-    y1: -20,
-    y2: 20,
-    y3: 30,
-  },
-  {
-    arg: 140,
-    y1: -12,
-    y2: 10,
-    y3: 32,
-  },
-  {
-    arg: 150,
-    y1: -32,
-    y2: 30,
-    y3: 12,
-  },
-  {
-    arg: 160,
-    y1: -20,
-    y2: 20,
-    y3: 30,
-  },
-  {
-    arg: 170,
-    y1: -39,
-    y2: 50,
-    y3: 19,
-  },
-  {
-    arg: 180,
-    y1: -10,
-    y2: 10,
-    y3: 15,
-  },
-  {
-    arg: 185,
-    y1: 10,
-    y2: 10,
-    y3: 15,
-  },
-  {
-    arg: 190,
-    y1: 30,
-    y2: 100,
-    y3: 13,
-  },
-  {
-    arg: 200,
-    y1: 40,
-    y2: 110,
-    y3: 14,
-  },
-  {
-    arg: 210,
-    y1: 50,
-    y2: 90,
-    y3: 90,
-  },
-  {
-    arg: 220,
-    y1: 40,
-    y2: 95,
-    y3: 120,
-  },
-  {
-    arg: 230,
-    y1: -12,
-    y2: 10,
-    y3: 32,
-  },
-  {
-    arg: 240,
-    y1: -32,
-    y2: 30,
-    y3: 12,
-  },
-  {
-    arg: 255,
-    y1: -20,
-    y2: 20,
-    y3: 30,
-  },
-  {
-    arg: 270,
-    y1: -12,
-    y2: 10,
-    y3: 32,
-  },
-  {
-    arg: 280,
-    y1: -32,
-    y2: 30,
-    y3: 12,
-  },
-  {
-    arg: 290,
-    y1: -20,
-    y2: 20,
-    y3: 30,
-  },
-  {
-    arg: 295,
-    y1: -39,
-    y2: 50,
-    y3: 19,
-  },
-  {
-    arg: 300,
-    y1: -10,
-    y2: 10,
-    y3: 15,
-  },
-  {
-    arg: 310,
-    y1: 10,
-    y2: 10,
-    y3: 15,
-  },
-  {
-    arg: 320,
-    y1: 30,
-    y2: 100,
-    y3: 13,
-  },
-  {
-    arg: 330,
-    y1: 40,
-    y2: 110,
-    y3: 14,
-  },
-  {
-    arg: 340,
-    y1: 50,
-    y2: 90,
-    y3: 90,
-  },
-  {
-    arg: 350,
-    y1: 40,
-    y2: 95,
-    y3: 120,
-  },
-  {
-    arg: 360,
-    y1: -12,
-    y2: 10,
-    y3: 32,
-  },
-  {
-    arg: 367,
-    y1: -32,
-    y2: 30,
-    y3: 12,
-  },
-  {
-    arg: 370,
-    y1: -20,
-    y2: 20,
-    y3: 30,
-  },
-  {
-    arg: 380,
-    y1: -12,
-    y2: 10,
-    y3: 32,
-  },
-  {
-    arg: 390,
-    y1: -32,
-    y2: 30,
-    y3: 12,
-  },
-  {
-    arg: 400,
-    y1: -20,
-    y2: 20,
-    y3: 30,
-  },
-  {
-    arg: 410,
-    y1: -39,
-    y2: 50,
-    y3: 19,
-  },
-  {
-    arg: 420,
-    y1: -10,
-    y2: 10,
-    y3: 15,
-  },
-  {
-    arg: 430,
-    y1: 10,
-    y2: 10,
-    y3: 15,
-  },
-  {
-    arg: 440,
-    y1: 30,
-    y2: 100,
-    y3: 13,
-  },
-  {
-    arg: 450,
-    y1: 40,
-    y2: 110,
-    y3: 14,
-  },
-  {
-    arg: 460,
-    y1: 50,
-    y2: 90,
-    y3: 90,
-  },
-  {
-    arg: 470,
-    y1: 40,
-    y2: 95,
-    y3: 120,
-  },
-  {
-    arg: 480,
-    y1: -12,
-    y2: 10,
-    y3: 32,
-  },
-  {
-    arg: 490,
-    y1: -32,
-    y2: 30,
-    y3: 12,
-  },
-  {
-    arg: 500,
-    y1: -20,
-    y2: 20,
-    y3: 30,
-  },
-  {
-    arg: 510,
-    y1: -12,
-    y2: 10,
-    y3: 32,
-  },
-  {
-    arg: 520,
-    y1: -32,
-    y2: 30,
-    y3: 12,
-  },
-  {
-    arg: 530,
-    y1: -20,
-    y2: 20,
-    y3: 30,
-  },
-  {
-    arg: 540,
-    y1: -39,
-    y2: 50,
-    y3: 19,
-  },
-  {
-    arg: 550,
-    y1: -10,
-    y2: 10,
-    y3: 15,
-  },
-  {
-    arg: 555,
-    y1: 10,
-    y2: 10,
-    y3: 15,
-  },
-  {
-    arg: 560,
-    y1: 30,
-    y2: 100,
-    y3: 13,
-  },
-  {
-    arg: 570,
-    y1: 40,
-    y2: 110,
-    y3: 14,
-  },
-  {
-    arg: 580,
-    y1: 50,
-    y2: 90,
-    y3: 90,
-  },
-  {
-    arg: 590,
-    y1: 40,
-    y2: 95,
-    y3: 12,
-  },
-  {
-    arg: 600,
-    y1: -12,
-    y2: 10,
-    y3: 32,
-  },
-  {
-    arg: 610,
-    y1: -32,
-    y2: 30,
-    y3: 12,
-  },
-  {
-    arg: 620,
-    y1: -20,
-    y2: 20,
-    y3: 30,
-  },
-  {
-    arg: 630,
-    y1: -12,
-    y2: 10,
-    y3: 32,
-  },
-  {
-    arg: 640,
-    y1: -32,
-    y2: 30,
-    y3: 12,
-  },
-  {
-    arg: 650,
-    y1: -20,
-    y2: 20,
-    y3: 30,
-  },
-  {
-    arg: 660,
-    y1: -39,
-    y2: 50,
-    y3: 19,
-  },
-  {
-    arg: 670,
-    y1: -10,
-    y2: 10,
-    y3: 15,
-  },
-  {
-    arg: 680,
-    y1: 10,
-    y2: 10,
-    y3: 15,
-  },
-  {
-    arg: 690,
-    y1: 30,
-    y2: 100,
-    y3: 13,
-  },
-  {
-    arg: 700,
-    y1: 40,
-    y2: 110,
-    y3: 14,
-  },
-  {
-    arg: 710,
-    y1: 50,
-    y2: 90,
-    y3: 90,
-  },
-  {
-    arg: 720,
-    y1: 40,
-    y2: 95,
-    y3: 120,
-  },
-  {
-    arg: 730,
-    y1: 20,
-    y2: 190,
-    y3: 130,
-  },
-  {
-    arg: 740,
-    y1: -32,
-    y2: 30,
-    y3: 12,
-  },
-  {
-    arg: 750,
-    y1: -20,
-    y2: 20,
-    y3: 30,
-  },
-  {
-    arg: 760,
-    y1: -12,
-    y2: 10,
-    y3: 32,
-  },
-  {
-    arg: 770,
-    y1: -32,
-    y2: 30,
-    y3: 12,
-  },
-  {
-    arg: 780,
-    y1: -20,
-    y2: 20,
-    y3: 30,
-  },
-  {
-    arg: 790,
-    y1: -39,
-    y2: 50,
-    y3: 19,
-  },
-  {
-    arg: 800,
-    y1: -10,
-    y2: 10,
-    y3: 15,
-  },
-  {
-    arg: 810,
-    y1: 10,
-    y2: 10,
-    y3: 15,
-  },
-  {
-    arg: 820,
-    y1: 30,
-    y2: 100,
-    y3: 13,
-  },
-  {
-    arg: 830,
-    y1: 40,
-    y2: 110,
-    y3: 14,
-  },
-  {
-    arg: 840,
-    y1: 50,
-    y2: 90,
-    y3: 90,
-  },
-  {
-    arg: 850,
-    y1: 40,
-    y2: 95,
-    y3: 120,
-  },
-  {
-    arg: 860,
-    y1: -12,
-    y2: 10,
-    y3: 32,
-  },
-  {
-    arg: 870,
-    y1: -32,
-    y2: 30,
-    y3: 12,
-  },
-  {
-    arg: 880,
-    y1: -20,
-    y2: 20,
-    y3: 30,
+    monthName: new Date(2022, 12, 1, 9, 22),
+    cost: 4.44422,
   },
 ];
 
@@ -573,37 +79,74 @@ $(function ($) {
   done01();
   done02();
 
-  $("#chart")
-    .dxChart({
-      palette: "Harmony Light",
-      dataSource: zoomingData,
-      series: [
-        {
-          argumentField: "arg",
-          valueField: "y1",
-        },
-        {
-          argumentField: "arg",
-          valueField: "y2",
-        },
-      ],
-      argumentAxis: {
-        visualRange: {
-          startValue: 300,
-          endValue: 500,
+  $("#chart").dxChart({
+    palette: "Exchange Chart",
+    dataSource: tradingData,
+    series: {
+      argumentField: "monthName",
+      valueField: "cost",
+      type: "line",
+      color: "#0099ff",
+    },
+    argumentAxis: {
+      label: {
+        format: "MMM dd, HH:mm",
+        overlappingBehavior: {
+          mode: "rotate",
+          rotationAngle: 90,
         },
       },
-      scrollBar: {
-        visible: true,
+      visualRange: {
+        startValue: new Date(2022, 4, 1, 9, 20),
+        endValue: new Date(2022, 5, 1, 9, 20),
       },
-      zoomAndPan: {
-        argumentAxis: "both",
+    },
+    valueAxis: {
+      // title: "Montant",
+      label: {
+        format: ",##0.#######",
       },
-      legend: {
-        visible: false,
+    },
+    tooltip: {
+      enabled: true,
+      location: "edge",
+      // format: "currency",
+      customizeTooltip: function (arg) {
+        return {
+          text:
+            "Open : " +
+            arg.valueText +
+            "\nLow : " +
+            arg.valueText +
+            "\nHigh : " +
+            arg.valueText +
+            "\nClose : " +
+            arg.valueText,
+        };
       },
-    })
-    .dxChart("instance");
+    },
+    scrollBar: {
+      visible: false,
+    },
+    zoomAndPan: {
+      argumentAxis: "both",
+    },
+    legend: {
+      visible: false,
+    },
+    margin: {
+      top: 20,
+      left: 20,
+      right: 20,
+      bottom: 0,
+    },
+    size: {
+      height: 450,
+    },
+    commonAxisSettings: {
+      aggregatedPointsPosition: "crossTicks",
+    },
+  });
 
   if ($("#chartTab").length) {
     document.getElementById("chartTab").style.display = "none";

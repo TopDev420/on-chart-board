@@ -16,7 +16,6 @@
     <link href="<?php echo BASEPATH . 'exchange/assets/plugins/datatables/responsive.bootstrap5.min.css' ?>" rel="stylesheet">
     <link href="<?php echo BASEPATH . 'exchange/assets/plugins/bootstrap-slider/dist/css/bootstrap-slider.min.css' ?>" rel="stylesheet">
     <link href="<?php echo BASEPATH . 'assets/css/toastr.css?v=1' ?>" rel="stylesheet">
-    <link href="<?php echo BASEPATH . 'exchange/assets/css/dx.dark.css' ?>" rel="stylesheet" type="text/css" />
     <link href="<?php echo BASEPATH . 'exchange/assets/css/custom.css?v=1' ?>" rel="stylesheet">
     <link href="<?php echo BASEPATH . 'exchange/assets/css/mystyle.css?v=1' ?>" rel="stylesheet">
     <script type='text/javascript' src="<?php echo site_url('Adapter/javascript?market=' . $adapter_symbol) ?>"></script>
@@ -798,7 +797,9 @@
     <script src="<?php echo BASEPATH . 'exchange/assets/plugins/blockUI/jquery.blockUI.js' ?>">
     </script>
     <script src="<?php echo BASEPATH . 'assets/js/toastr.js?v=1' ?>"></script>
-    <script src="<?php echo BASEPATH . 'exchange/assets/js/dx.all.js' ?>"></script>
+    <script src="<?php echo BASEPATH . 'exchange/assets/js/fusioncharts.js' ?>" type="text/javascript"></script>
+    <script src="<?php echo BASEPATH . 'exchange/assets/js/fusioncharts.theme.fusion.js' ?>" type="text/javascript"></script>
+    <script src="<?php echo BASEPATH . 'exchange/assets/js/fusioncharts.theme.candy.js' ?>" type="text/javascript"></script>
     <script src="<?php echo BASEPATH . 'exchange/assets/js/custom.js?v=1.0' ?>"></script>
     <script src="<?php echo BASEPATH . 'exchange/assets/js/exchange.js?v=1.10' ?>"></script>
     <script src="<?php echo BASEPATH . 'exchange/assets/plugins/apexcharts/apexcharts.active.js?v=1' ?>"></script>

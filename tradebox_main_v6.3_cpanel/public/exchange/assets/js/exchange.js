@@ -1,57 +1,52 @@
 obj = JSON.parse(BDTASK.phrase());
 theme = JSON.parse(BDTASK.theme());
-const tradingData = [
+
+const data = [
+  ["2018-10-24", 222.600006, 224.229996, 214.539993, 215.089996, 40925500],
+  ["2018-10-25", 217.710007, 221.380005, 216.75, 219.800003, 29855800],
+  ["2018-10-26", 215.899994, 220.190002, 212.669998, 216.300003, 47258400],
+  ["2018-10-29", 219.190002, 219.690002, 206.089996, 212.240005, 45935500],
+  ["2018-10-30", 211.149994, 215.179993, 209.270004, 213.300003, 36660000],
+  ["2018-10-31", 216.880005, 220.449997, 216.619995, 218.860001, 38358900],
+  ["2018-11-01", 219.050003, 222.360001, 216.809998, 222.220001, 58323200],
+  ["2018-11-02", 209.550003, 213.649994, 205.429993, 207.479996, 91328700],
+  ["2018-11-05", 204.300003, 204.389999, 198.169998, 201.589996, 66163700],
+  ["2018-11-06", 201.919998, 204.720001, 201.690002, 203.770004, 31882900],
+  ["2018-11-07", 205.970001, 210.059998, 204.130005, 209.949997, 33424400],
+  ["2018-11-08", 209.979996, 210.119995, 206.75, 208.490005, 25362600],
+  ["2018-11-09", 205.550003, 206.009995, 202.25, 204.470001, 34365800],
+  ["2018-11-12", 199, 199.850006, 193.789993, 194.169998, 51135500],
+  ["2018-11-13", 191.630005, 197.179993, 191.449997, 192.229996, 46882900],
+  ["2018-11-14", 193.899994, 194.479996, 185.929993, 186.800003, 60801000],
+  ["2018-11-15", 188.389999, 191.970001, 186.899994, 191.410004, 46478800],
+  ["2018-11-16", 190.5, 194.970001, 189.460007, 193.529999, 36208500],
+];
+
+const schema = [
   {
-    monthName: new Date(2021, 12, 1, 13, 14),
-    cost: 0.44422,
+    name: "Date",
+    type: "date",
+    format: "%Y-%m-%d",
   },
   {
-    monthName: new Date(2022, 1, 1, 14, 15),
-    cost: 4.53269,
+    name: "Open",
+    type: "number",
   },
   {
-    monthName: new Date(2022, 2, 1, 9, 22),
-    cost: 85.89,
+    name: "High",
+    type: "number",
   },
   {
-    monthName: new Date(2022, 3, 1, 9, 22),
-    cost: 0.323423,
+    name: "Low",
+    type: "number",
   },
   {
-    monthName: new Date(2022, 4, 1, 9, 22),
-    cost: 5.9983,
+    name: "Close",
+    type: "number",
   },
   {
-    monthName: new Date(2022, 5, 1, 9, 22),
-    cost: 7.25632,
-  },
-  {
-    monthName: new Date(2022, 6, 1, 9, 22),
-    cost: 4.23052,
-  },
-  {
-    monthName: new Date(2022, 7, 1, 9, 22),
-    cost: 3.12598,
-  },
-  {
-    monthName: new Date(2022, 8, 1, 9, 22),
-    cost: 4.53686,
-  },
-  {
-    monthName: new Date(2022, 9, 1, 9, 22),
-    cost: 6.23548,
-  },
-  {
-    monthName: new Date(2022, 10, 1, 9, 22),
-    cost: 8.259,
-  },
-  {
-    monthName: new Date(2022, 11, 1, 9, 22),
-    cost: 4.53069,
-  },
-  {
-    monthName: new Date(2022, 12, 1, 9, 22),
-    cost: 4.44422,
+    name: "Volume",
+    type: "number",
   },
 ];
 
@@ -79,78 +74,53 @@ $(function ($) {
   done01();
   done02();
 
-  $("#chart").dxChart({
-    palette: "Exchange Chart",
-    dataSource: tradingData,
-    series: {
-      argumentField: "monthName",
-      valueField: "cost",
-      type: "line",
-      color: "#0099ff",
-    },
-    argumentAxis: {
-      label: {
-        format: "MMM dd, HH:mm",
-        overlappingBehavior: {
-          mode: "rotate",
-          rotationAngle: 90,
-        },
-      },
-      visualRange: {
-        startValue: new Date(2022, 4, 1, 9, 20),
-        endValue: new Date(2022, 5, 1, 9, 20),
-      },
-    },
-    valueAxis: {
-      // title: "Montant",
-      label: {
-        format: ",##0.#######",
-      },
-    },
-    tooltip: {
-      enabled: true,
-      location: "edge",
-      // format: "currency",
-      customizeTooltip: function (arg) {
-        return {
-          text:
-            "Open : " +
-            arg.valueText +
-            "\nLow : " +
-            arg.valueText +
-            "\nHigh : " +
-            arg.valueText +
-            "\nClose : " +
-            arg.valueText,
-        };
-      },
-    },
-    scrollBar: {
-      visible: false,
-    },
-    zoomAndPan: {
-      argumentAxis: "both",
-    },
-    legend: {
-      visible: false,
-    },
-    margin: {
-      top: 20,
-      left: 20,
-      right: 20,
-      bottom: 0,
-    },
-    size: {
-      height: 450,
-    },
-    commonAxisSettings: {
-      aggregatedPointsPosition: "crossTicks",
-    },
-  });
-
   if ($("#chartTab").length) {
     document.getElementById("chartTab").style.display = "none";
   }
+
+  const dataStore = new FusionCharts.DataStore();
+  const dataSource = {
+    // chart: {
+    //   theme: "candy",
+    // },
+    chart: {
+      //Set the theme for your chart
+      theme: "candy",
+    },
+    caption: {
+      //   text: "Apple Inc. Stock Price",
+    },
+    subcaption: {
+      //   text: "Stock prices from January 1980 - November 2011",
+    },
+    yaxis: [
+      {
+        plot: {
+          value: {
+            open: "Open",
+            high: "High",
+            low: "Low",
+            close: "Close",
+          },
+          type: "candlestick",
+        },
+        format: {
+          prefix: "ETL",
+        },
+        // title: "Stock Value",
+        orientation: "right",
+      },
+    ],
+  };
+  dataSource.data = dataStore.createDataTable(data, schema);
+
+  new FusionCharts({
+    type: "timeseries",
+    renderAt: "chart",
+    width: "100%",
+    height: "500",
+    dataSource: dataSource,
+  }).render();
 
   //tradingview initial off
   $("#original").on("click", function () {

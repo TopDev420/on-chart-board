@@ -2516,9 +2516,8 @@ class HomeController extends BaseController
 
         foreach ($coinhistory as $key => $value) {
             $timestamp = strtotime($value->open_date);
-
-            $string['x'] = $timestamp * 1000;
-            $string['y'] = [$value->open * 1, $value->high * 1, $value->low * 1, $value->close * 1];
+            $date = gmdate("Y-m-d H:i:s", $timestamp);
+            $string = [$date, $value->open * 1, $value->high * 1, $value->low * 1, $value->close * 1, $twentyhoursVolume->volume_24h];
             array_push($data, $string);
         }
 

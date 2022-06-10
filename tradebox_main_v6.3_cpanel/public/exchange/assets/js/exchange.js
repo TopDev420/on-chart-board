@@ -1,345 +1,7 @@
 obj = JSON.parse(BDTASK.phrase());
 theme = JSON.parse(BDTASK.theme());
 
-const data = [
-  ["2022-01-11 22:23", 192.2345, 194.950001, 189.460007, 193.529999, 46478800],
-  ["2022-01-11 22:24", 195.25346, 192.870001, 190.460007, 192.529999, 36203500],
-  ["2022-01-11 22:25", 197.5456, 195.270001, 191.460007, 194.529999, 33208500],
-  ["2022-01-11 22:26", 199.5345, 191.170001, 189.460007, 195.529999, 36308500],
-  ["2022-01-11 22:27", 190.34565, 193.370001, 159.460007, 193.529999, 36508500],
-  ["2022-01-11 22:28", 197.4365, 195.470001, 189.460007, 195.529999, 36228500],
-  ["2022-01-11 22:29", 210.34565, 191.770001, 179.460007, 213.529999, 36208500],
-  ["2022-01-11 22:30", 230.5654, 193.870001, 210.460007, 199.529999, 36204500],
-  ["2022-01-11 22:31", 197.3455, 192.670001, 189.460007, 213.529999, 36202500],
-  ["2022-01-11 22:32", 192.4535, 198.770001, 191.460007, 197.529999, 31208500],
-  ["2022-01-11 22:33", 190.7465, 197.570001, 189.460007, 193.529999, 33208500],
-  [
-    "2022-01-11 22:34",
-    222.600006,
-    224.229996,
-    214.539993,
-    215.089996,
-    40925500,
-  ],
-  ["2022-01-11 22:35", 217.710007, 221.380005, 216.75, 219.800003, 29855800],
-  [
-    "2022-01-11 22:36",
-    215.899994,
-    220.190002,
-    212.669998,
-    216.300003,
-    47258400,
-  ],
-  [
-    "2022-01-11 22:37",
-    219.190002,
-    219.690002,
-    206.089996,
-    212.240005,
-    45935500,
-  ],
-  [
-    "2022-01-11 22:38",
-    211.149994,
-    215.179993,
-    209.270004,
-    213.300003,
-    36660000,
-  ],
-  [
-    "2022-01-11 22:39",
-    216.880005,
-    220.449997,
-    216.619995,
-    218.860001,
-    38358900,
-  ],
-  [
-    "2022-01-11 22:40",
-    219.050003,
-    222.360001,
-    216.809998,
-    222.220001,
-    58323200,
-  ],
-  [
-    "2022-01-11 22:41",
-    209.550003,
-    213.649994,
-    205.429993,
-    207.479996,
-    91328700,
-  ],
-  [
-    "2022-01-11 22:42",
-    204.300003,
-    204.389999,
-    198.169998,
-    201.589996,
-    66163700,
-  ],
-  [
-    "2022-01-11 22:43",
-    201.919998,
-    204.720001,
-    201.690002,
-    203.770004,
-    31882900,
-  ],
-  [
-    "2022-01-11 22:44",
-    205.970001,
-    210.059998,
-    204.130005,
-    209.949997,
-    33424400,
-  ],
-  ["2022-01-11 22:45", 209.979996, 210.119995, 206.75, 208.490005, 25362600],
-  ["2022-01-11 22:46", 205.550003, 206.009995, 202.25, 204.470001, 34365800],
-  ["2022-01-11 22:47", 199, 199.850006, 193.789993, 194.169998, 51135500],
-  [
-    "2022-01-11 22:48",
-    191.630005,
-    197.179993,
-    191.449997,
-    192.229996,
-    46882900,
-  ],
-  [
-    "2022-01-11 22:49",
-    193.899994,
-    194.479996,
-    185.929993,
-    186.800003,
-    60801000,
-  ],
-  [
-    "2022-01-11 22:50",
-    188.389999,
-    191.970001,
-    186.899994,
-    191.410004,
-    46478800,
-  ],
-  ["2022-01-11 22:51", 190.5, 194.970001, 189.460007, 193.529999, 36208500],
-  ["2022-01-11 22:52", 192.2345, 194.950001, 189.460007, 193.529999, 46478800],
-  ["2022-01-11 22:53", 195.25346, 192.870001, 190.460007, 192.529999, 36203500],
-  ["2022-01-11 22:54", 197.5456, 195.270001, 191.460007, 194.529999, 33208500],
-  ["2022-01-11 22:55", 199.5345, 191.170001, 189.460007, 195.529999, 36308500],
-  ["2022-01-11 22:56", 190.34565, 193.370001, 159.460007, 193.529999, 36508500],
-  ["2022-01-11 22:57", 197.4365, 195.470001, 189.460007, 195.529999, 36228500],
-  ["2022-01-11 22:58", 210.34565, 191.770001, 179.460007, 213.529999, 36208500],
-  ["2022-01-11 22:59", 230.5654, 193.870001, 210.460007, 199.529999, 36204500],
-  ["2022-01-11 23:00", 197.3455, 192.670001, 189.460007, 213.529999, 36202500],
-  [
-    "2022-01-11 23:01",
-    209.550003,
-    213.649994,
-    205.429993,
-    207.479996,
-    91328700,
-  ],
-  [
-    "2022-01-11 23:02",
-    204.300003,
-    204.389999,
-    198.169998,
-    201.589996,
-    66163700,
-  ],
-  [
-    "2022-01-11 23:03",
-    201.919998,
-    204.720001,
-    201.690002,
-    203.770004,
-    31882900,
-  ],
-  [
-    "2022-01-11 23:04",
-    205.970001,
-    210.059998,
-    204.130005,
-    209.949997,
-    33424400,
-  ],
-  ["2022-01-11 23:05", 209.979996, 210.119995, 206.75, 208.490005, 25362600],
-  ["2022-01-11 23:06", 205.550003, 206.009995, 202.25, 204.470001, 34365800],
-  ["2022-01-11 23:07", 199, 199.850006, 193.789993, 194.169998, 51135500],
-  [
-    "2022-01-11 23:08",
-    191.630005,
-    197.179993,
-    191.449997,
-    192.229996,
-    46882900,
-  ],
-  [
-    "2022-01-11 23:09",
-    193.899994,
-    194.479996,
-    185.929993,
-    186.800003,
-    60801000,
-  ],
-  [
-    "2022-01-11 23:10",
-    188.389999,
-    191.970001,
-    186.899994,
-    191.410004,
-    46478800,
-  ],
-  ["2022-01-11 23:11", 190.5, 194.970001, 189.460007, 193.529999, 36208500],
-  ["2022-01-12 00:23", 192.2345, 194.950001, 189.460007, 193.529999, 46478800],
-  ["2022-01-12 00:24", 195.25346, 192.870001, 190.460007, 192.529999, 36203500],
-  ["2022-01-12 00:25", 197.5456, 195.270001, 191.460007, 194.529999, 33208500],
-  ["2022-01-12 00:26", 199.5345, 191.170001, 189.460007, 195.529999, 36308500],
-  ["2022-01-12 00:27", 190.34565, 193.370001, 159.460007, 193.529999, 36508500],
-  ["2022-01-12 00:28", 197.4365, 195.470001, 189.460007, 195.529999, 36228500],
-  ["2022-01-12 00:29", 210.34565, 191.770001, 179.460007, 213.529999, 36208500],
-  ["2022-01-12 00:30", 230.5654, 193.870001, 210.460007, 199.529999, 36204500],
-  ["2022-01-12 00:31", 197.3455, 192.670001, 189.460007, 213.529999, 36202500],
-  ["2022-01-12 00:32", 192.4535, 198.770001, 191.460007, 197.529999, 31208500],
-  ["2022-01-12 00:33", 190.7465, 197.570001, 189.460007, 193.529999, 33208500],
-  [
-    "2022-01-12 00:34",
-    222.600006,
-    224.229996,
-    214.539993,
-    215.089996,
-    40025500,
-  ],
-  ["2022-01-12 00:35", 217.710007, 221.380005, 216.75, 219.800003, 29855800],
-  [
-    "2022-01-12 00:36",
-    215.899994,
-    220.190002,
-    212.669998,
-    216.300003,
-    47258400,
-  ],
-  [
-    "2022-01-12 00:37",
-    219.190002,
-    219.690002,
-    206.089996,
-    212.240005,
-    45935500,
-  ],
-  [
-    "2022-01-12 00:38",
-    211.149994,
-    215.179993,
-    200.270004,
-    213.300003,
-    36660000,
-  ],
-  [
-    "2022-01-12 00:39",
-    216.880005,
-    220.449997,
-    216.619995,
-    218.860001,
-    38358900,
-  ],
-  [
-    "2022-01-12 00:40",
-    219.050003,
-    222.360001,
-    216.800998,
-    222.220001,
-    58323200,
-  ],
-  [
-    "2022-01-12 00:41",
-    200.550003,
-    213.649994,
-    205.429993,
-    207.479996,
-    91328700,
-  ],
-  [
-    "2022-01-12 00:42",
-    204.300003,
-    204.389999,
-    198.169998,
-    201.589996,
-    66163700,
-  ],
-  [
-    "2022-01-12 00:43",
-    201.919998,
-    204.720001,
-    201.690002,
-    203.770004,
-    31882900,
-  ],
-  [
-    "2022-01-12 00:44",
-    205.970001,
-    210.059998,
-    204.130005,
-    200.949997,
-    33424400,
-  ],
-  ["2022-01-12 00:45", 200.979996, 210.119995, 206.75, 208.490005, 25362600],
-  ["2022-01-12 00:46", 205.550003, 206.000995, 202.25, 204.470001, 34365800],
-  ["2022-01-12 00:47", 199, 199.850006, 193.789993, 194.169998, 51135500],
-  [
-    "2022-01-12 00:48",
-    191.630005,
-    197.179993,
-    191.449997,
-    192.229996,
-    46882900,
-  ],
-  [
-    "2022-01-12 00:49",
-    193.899994,
-    194.479996,
-    185.929993,
-    186.800003,
-    60801000,
-  ],
-  [
-    "2022-01-12 00:50",
-    188.389999,
-    191.970001,
-    186.899994,
-    191.410004,
-    46478800,
-  ],
-  ["2022-01-13 00:51", 190.5, 194.970001, 189.460007, 193.529999, 36208500],
-];
-
-const schema = [
-  {
-    name: "Date",
-    type: "date",
-    // format: "%Y-%m-%d %-I:%-M",
-  },
-  {
-    name: "Open",
-    type: "number",
-  },
-  {
-    name: "High",
-    type: "number",
-  },
-  {
-    name: "Low",
-    type: "number",
-  },
-  {
-    name: "Close",
-    type: "number",
-  },
-  {
-    name: "Volume",
-    type: "number",
-  },
-];
+const dataStore = new FusionCharts.DataStore();
 
 $(function () {
   // Time interval control dropdown display and hide
@@ -358,7 +20,6 @@ $(function () {
   });
 
   //Start Fusion CandleStick chart
-  const dataStore = new FusionCharts.DataStore();
 
   const dataSource = {
     chart: {
@@ -397,7 +58,6 @@ $(function () {
       },
     ],
     xaxis: {
-     
       outputTimeFormat: {
         // year: "",
         // month: "%b'%y (%q)",
@@ -406,7 +66,7 @@ $(function () {
         //minute: "",
         //second: "",
         //millisecond: ""
-    },
+      },
       binning: {
         year: [],
         month: [],
@@ -422,37 +82,33 @@ $(function () {
     },
   };
 
-  dataSource.data = dataStore.createDataTable(data, schema);
-
-  new FusionCharts({
-    type: "timeseries",
-    renderAt: "chart",
-    width: "100%",
-    height: "500",
-    dataSource: dataSource,
-  }).render();
-
-
-  $("#switcher").on("click", function () {
-    if ($("#switcher").attr("ischecked") == "true") {
-      dataSource.chart.theme = "fusion"
-      $("body").toggleClass("dark-theme");
-      $("#switcher").attr("ischecked", "false")
-      console.log("checked")
-    } else if ($("#switcher").attr("ischecked") == "false") {
-      dataSource.chart.theme = "candy"
-      $("body").toggleClass("dark-theme");
-      $("#switcher").attr("ischecked", "true")
-      console.log("unchecked")
-    }
-    new FusionCharts({
-      type: "timeseries",
-      renderAt: "chart",
-      width: "100%",
-      height: "500",
-      dataSource: dataSource,
-    }).render();
-  });
+  const schema = [
+    {
+      name: "Date",
+      type: "date",
+      // format: "%Y-%m-%d %-I:%-M",
+    },
+    {
+      name: "Open",
+      type: "number",
+    },
+    {
+      name: "High",
+      type: "number",
+    },
+    {
+      name: "Low",
+      type: "number",
+    },
+    {
+      name: "Close",
+      type: "number",
+    },
+    {
+      name: "Volume",
+      type: "number",
+    },
+  ];
 
   //  get url paramiter
   var getUrlParameter = function getUrlParameter(sParam) {
@@ -473,11 +129,45 @@ $(function () {
 
   // draw chart
   var market = getUrlParameter("market");
-  var interval = 5; // real
-  // var interval = '5m'; // test
+  var interval = 1; // real
 
-  // var candlestickStream = new CandlestickStream(market, interval, true);
-  // candlestickStream.start();
+  $.getJSON(
+    BDTASK.getSiteAction(
+      "tradehistory?market=" + market + "&interval=" + interval
+    ),
+    function (data) {
+      dataSource.data = dataStore.createDataTable(
+        data.update_candle_data,
+        schema
+      );
+      new FusionCharts({
+        type: "timeseries",
+        renderAt: "chart",
+        width: "100%",
+        height: "500",
+        dataSource: dataSource,
+      }).render();
+    }
+  );
+
+  $("#switcher").on("click", function () {
+    if ($("#switcher").attr("ischecked") == "true") {
+      dataSource.chart.theme = "fusion";
+      $("body").toggleClass("dark-theme");
+      $("#switcher").attr("ischecked", "false");
+    } else if ($("#switcher").attr("ischecked") == "false") {
+      dataSource.chart.theme = "candy";
+      $("body").toggleClass("dark-theme");
+      $("#switcher").attr("ischecked", "true");
+    }
+    new FusionCharts({
+      type: "timeseries",
+      renderAt: "chart",
+      width: "100%",
+      height: "500",
+      dataSource: dataSource,
+    }).render();
+  });
 
   $(".control .range").on("click", function () {
     $(".range").removeClass("active");
@@ -557,17 +247,25 @@ $(function () {
         millisecond: [],
       };
     }
-    new FusionCharts({
-      type: "timeseries",
-      renderAt: "chart",
-      width: "100%",
-      height: "500",
-      dataSource: dataSource,
-    }).render();
-    // interval = $(this).text().toLowerCase(); // test
 
-    // var candlestickStream = new CandlestickStream(market, interval, true);
-    // candlestickStream.start();
+    $.getJSON(
+      BDTASK.getSiteAction(
+        "tradehistory?market=" + market + "&interval=" + interval
+      ),
+      function (data) {
+        dataSource.data = dataStore.createDataTable(
+          data.update_candle_data,
+          schema
+        );
+        new FusionCharts({
+          type: "timeseries",
+          renderAt: "chart",
+          width: "100%",
+          height: "500",
+          dataSource: dataSource,
+        }).render();
+      }
+    );
   });
 
   $(".control .sub-range").on("click", function () {
@@ -705,13 +403,24 @@ $(function () {
       };
     }
 
-    new FusionCharts({
-      type: "timeseries",
-      renderAt: "chart",
-      width: "100%",
-      height: "500",
-      dataSource: dataSource,
-    }).render();
+    $.getJSON(
+      BDTASK.getSiteAction(
+        "tradehistory?market=" + market + "&interval=" + interval
+      ),
+      function (data) {
+        dataSource.data = dataStore.createDataTable(
+          data.update_candle_data,
+          schema
+        );
+        new FusionCharts({
+          type: "timeseries",
+          renderAt: "chart",
+          width: "100%",
+          height: "500",
+          dataSource: dataSource,
+        }).render();
+      }
+    );
     // interval = $(this).text().toLowerCase(); // test
 
     // var candlestickStream = new CandlestickStream(market, interval, true);
@@ -726,29 +435,6 @@ $(function ($) {
   done2();
   done01();
   done02();
-
-  if ($("#chartTab").length) {
-    document.getElementById("chartTab").style.display = "none";
-  }
-
-  //tradingview initial off
-  $("#original").on("click", function () {
-    $("#tradingview").removeClass("active");
-    $("#original").addClass("active");
-    $("#tv_chart_container").css("display", "none");
-    $("#chart_div").css("display", "block");
-  });
-
-  $("#tradingview").on("click", function () {
-    $("#original").removeClass("active");
-    $("#tradingview").addClass("active");
-    $("#chart_div").css("display", "none");
-    $("#tv_chart_container").css("display", "block");
-  });
-
-  if ($("#tv_chart_container").length) {
-    document.getElementById("tv_chart_container").style.display = "none";
-  }
 
   //get url paramiter
   var getUrlParameter = function getUrlParameter(sParam) {
@@ -836,14 +522,14 @@ $(function ($) {
     setTimeout(function () {
       messageChat();
       done2();
-    }, 1800);
+    }, 180000);
   }
 
   function done02() {
     setTimeout(function () {
       tradehistoryupdates();
       done02();
-    }, 10000);
+    }, 300000);
   }
 
   //Message Ajax load
@@ -996,6 +682,67 @@ $(function ($) {
         }
       });
     }
+
+    const dataSource = {
+      chart: {
+        multicanvas: false,
+        theme: "candy",
+      },
+      yaxis: [
+        {
+          plot: [
+            {
+              value: {
+                open: "Open",
+                high: "High",
+                low: "Low",
+                close: "Close",
+              },
+              type: "candlestick",
+            },
+          ],
+          format: {
+            // prefix: ""
+          },
+          // title: "Stock Price",
+          orientation: "right",
+        },
+        {
+          plot: [
+            {
+              value: "Volume",
+              type: "column",
+            },
+          ],
+          max: "900000000",
+          orientation: "left",
+          title: "",
+        },
+      ],
+      xaxis: {
+        outputTimeFormat: {
+          // year: "",
+          // month: "%b'%y (%q)",
+          // day: "%d/%m (%a)",
+          //hour: "",
+          //minute: "",
+          //second: "",
+          //millisecond: ""
+        },
+        binning: {
+          year: [],
+          month: [],
+          day: [],
+          hour: [],
+          minute: [1],
+          second: [],
+          millisecond: [],
+        },
+      },
+      navigator: {
+        enabled: 1,
+      },
+    };
 
     $.getJSON(
       BDTASK.getSiteAction(
@@ -1160,9 +907,18 @@ $(function ($) {
           }
         });
 
-        // updating candlestick chart
-        // var candlestickStream = new CandlestickStream(market, interval, false);
-        // candlestickStream.start();
+        dataSource.data = dataStore.createDataTable(
+          data.update_candle_data,
+          schema
+        );
+
+        new FusionCharts({
+          type: "timeseries",
+          renderAt: "chart",
+          width: "100%",
+          height: "500",
+          dataSource: dataSource,
+        }).render();
       }
     );
   }

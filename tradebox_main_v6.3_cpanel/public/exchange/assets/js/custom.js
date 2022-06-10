@@ -10,15 +10,6 @@ $(document).ready(function () {
       e.stopPropagation();
     });
 
-  // Switcher
-  $("#switcher").on("click", function () {
-    if ($("#switcher").attr("checked", true)) {
-      $("body").toggleClass("dark-theme");
-    } else if ($("#switcher").attr("checked", false)) {
-      $("body").toggleClass("dark-theme");
-    }
-  });
-
   // DataTable
   $(".trade-market-table").DataTable({
     lengthChange: false,

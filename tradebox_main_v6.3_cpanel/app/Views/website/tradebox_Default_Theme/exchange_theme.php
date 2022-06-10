@@ -187,7 +187,7 @@
                         <?php } ?>
                         <div class="toolbar-link ms-2 d-none d-sm-block">
                             <label class="switch ml-auto">
-                                <input type="checkbox" id="switcher"><span></span>
+                                <input type="checkbox" id="switcher" ischecked="true"><span></span>
                             </label>
                         </div>
                         <!-- Navbar Toggler Button For Mobile (Breakpoints: <991px) -->

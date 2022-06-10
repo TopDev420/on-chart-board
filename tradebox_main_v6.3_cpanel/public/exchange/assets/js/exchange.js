@@ -397,7 +397,16 @@ $(function () {
       },
     ],
     xaxis: {
-      // plot: "Order Date",
+     
+      outputTimeFormat: {
+        // year: "",
+        // month: "%b'%y (%q)",
+        // day: "%d/%m (%a)",
+        //hour: "",
+        //minute: "",
+        //second: "",
+        //millisecond: ""
+    },
       binning: {
         year: [],
         month: [],
@@ -422,6 +431,28 @@ $(function () {
     height: "500",
     dataSource: dataSource,
   }).render();
+
+
+  $("#switcher").on("click", function () {
+    if ($("#switcher").attr("ischecked") == "true") {
+      dataSource.chart.theme = "fusion"
+      $("body").toggleClass("dark-theme");
+      $("#switcher").attr("ischecked", "false")
+      console.log("checked")
+    } else if ($("#switcher").attr("ischecked") == "false") {
+      dataSource.chart.theme = "candy"
+      $("body").toggleClass("dark-theme");
+      $("#switcher").attr("ischecked", "true")
+      console.log("unchecked")
+    }
+    new FusionCharts({
+      type: "timeseries",
+      renderAt: "chart",
+      width: "100%",
+      height: "500",
+      dataSource: dataSource,
+    }).render();
+  });
 
   //  get url paramiter
   var getUrlParameter = function getUrlParameter(sParam) {

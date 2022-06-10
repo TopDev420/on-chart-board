@@ -1,0 +1,56 @@
+CRITICAL - 2022-06-13 14:35:13 --> A non-numeric value encountered
+#0 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\app\Modules\Website\Controllers\HomeController.php(2512): CodeIgniter\Debug\Exceptions->errorHandler(2, 'A non-numeric v...', 'D:\\03_projects\\...', 2512, Array)
+#1 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(926): App\Modules\Website\Controllers\HomeController->tradehistory()
+#2 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Modules\Website\Controllers\HomeController))
+#3 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\index.php(64): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-06-13 14:52:07 --> Trying to get property 'open_date' of non-object
+#0 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\app\Modules\Website\Controllers\HomeController.php(2518): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', 'D:\\03_projects\\...', 2518, Array)
+#1 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(926): App\Modules\Website\Controllers\HomeController->tradehistory()
+#2 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Modules\Website\Controllers\HomeController))
+#3 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\index.php(64): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-06-13 14:54:04 --> Trying to get property 'open_date' of non-object
+#0 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\app\Modules\Website\Controllers\HomeController.php(2518): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', 'D:\\03_projects\\...', 2518, Array)
+#1 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(926): App\Modules\Website\Controllers\HomeController->tradehistory()
+#2 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Modules\Website\Controllers\HomeController))
+#3 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\index.php(64): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-06-13 14:54:21 --> Trying to get property 'open_date' of non-object
+#0 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\app\Modules\Website\Controllers\HomeController.php(2518): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', 'D:\\03_projects\\...', 2518, Array)
+#1 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(926): App\Modules\Website\Controllers\HomeController->tradehistory()
+#2 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Modules\Website\Controllers\HomeController))
+#3 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\index.php(64): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-06-13 16:01:26 --> A non-numeric value encountered
+#0 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\app\Modules\Website\Controllers\HomeController.php(2512): CodeIgniter\Debug\Exceptions->errorHandler(2, 'A non-numeric v...', 'D:\\03_projects\\...', 2512, Array)
+#1 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(926): App\Modules\Website\Controllers\HomeController->tradehistory()
+#2 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Modules\Website\Controllers\HomeController))
+#3 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\index.php(64): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-06-13 16:14:38 --> Undefined property: stdClass::$open
+#0 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\app\Modules\Website\Controllers\HomeController.php(2520): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\03_projects\\...', 2520, Array)
+#1 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(926): App\Modules\Website\Controllers\HomeController->tradehistory()
+#2 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Modules\Website\Controllers\HomeController))
+#3 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\index.php(64): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-06-13 16:15:14 --> Undefined property: stdClass::$open
+#0 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\app\Modules\Website\Controllers\HomeController.php(2520): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\03_projects\\...', 2520, Array)
+#1 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(926): App\Modules\Website\Controllers\HomeController->tradehistory()
+#2 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Modules\Website\Controllers\HomeController))
+#3 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\index.php(64): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2022-06-13 16:15:20 --> Undefined property: stdClass::$open
+#0 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\app\Modules\Website\Controllers\HomeController.php(2520): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\03_projects\\...', 2520, Array)
+#1 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(926): App\Modules\Website\Controllers\HomeController->tradehistory()
+#2 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Modules\Website\Controllers\HomeController))
+#3 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\index.php(64): CodeIgniter\CodeIgniter->run()
+#5 {main}

@@ -1,7 +1,0 @@
-CRITICAL - 2022-06-13 14:35:13 --> A non-numeric value encountered
-#0 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\app\Modules\Website\Controllers\HomeController.php(2512): CodeIgniter\Debug\Exceptions->errorHandler(2, 'A non-numeric v...', 'D:\\03_projects\\...', 2512, Array)
-#1 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(926): App\Modules\Website\Controllers\HomeController->tradehistory()
-#2 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(412): CodeIgniter\CodeIgniter->runController(Object(App\Modules\Website\Controllers\HomeController))
-#3 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\system\CodeIgniter.php(320): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
-#4 D:\03_projects\customization-crypto-exchange-chart\tradebox_main_v6.3_cpanel\index.php(64): CodeIgniter\CodeIgniter->run()
-#5 {main}

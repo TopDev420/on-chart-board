@@ -333,23 +333,25 @@
                     </ul> -->
                     <div class="control">
                         <span>Time Range: </span>
+                        <span class="range active" data-range="1" id="one">1m</span>
+                        <span class="range" data-range="5" id="five">5m</span>
                         <span class="range" data-range="15" id="quarter">15m</span>
                         <span class="range" data-range="60" id="hour">1H</span>
                         <span class="range" data-range="240" id="4hr">4H</span>
                         <span class="range" data-range="1440" id="day">1D</span>
                         <span class="range" data-range="10080" id="week">1W</span>
-                        <span class="range dropdown active">1m <i class="fa fa-sort-down"></i></span>
+                        <span class="range dropdown">More <i class="fa fa-sort-down"></i></span>
                         <div class="range-dropdown">
                             <div class="title">Select Intervals</div>
                             <div class="close"><i class="fa fa-times"></i></div>
-                            <div class=" sub-range" data-range="1">1m</div>
-                            <div class="sub-range" data-range="3">3m</div>
-                            <div class="sub-range active" data-range="5">5m</div>
+                            <div class="sub-range" data-range="1">1m</div>
+                            <div class="sub-range" data-range="5">5m</div>
                             <div class="sub-range" data-range="15">15m</div>
                             <div class="sub-range" data-range="30">30m</div>
                             <div class="sub-range" data-range="60">1H</div>
                             <div class="sub-range" data-range="120">2H</div>
                             <div class="sub-range" data-range="240">4H</div>
+                            <div class="sub-range" data-range="480">8H</div>
                             <div class="sub-range" data-range="720">12H</div>
                             <div class="sub-range" data-range="1440">1D</div>
                             <div class="sub-range" data-range="10080">1W</div>
@@ -791,7 +793,6 @@
     <script src="<?php echo BASEPATH . 'exchange/assets/plugins/datatables/dataTables.bootstrap5.min.js' ?>"></script>
     <script src="<?php echo BASEPATH . 'exchange/assets/plugins/datatables/dataTables.responsive.min.js' ?>"></script>
     <script src="<?php echo BASEPATH . 'exchange/assets/plugins/datatables/responsive.bootstrap5.min.js' ?>"></script>
-    <script src="<?php echo BASEPATH . 'exchange/assets/plugins/apexcharts/apexcharts.min.js' ?>"></script>
     <script src="<?php echo BASEPATH . 'exchange/assets/plugins/bootstrap-slider/dist/bootstrap-slider.min.js' ?>">
     </script>
     <script src="<?php echo BASEPATH . 'exchange/assets/plugins/blockUI/jquery.blockUI.js' ?>">
@@ -802,8 +803,6 @@
     <script src="<?php echo BASEPATH . 'exchange/assets/js/fusioncharts.theme.candy.js' ?>" type="text/javascript"></script>
     <script src="<?php echo BASEPATH . 'exchange/assets/js/custom.js?v=1.0' ?>"></script>
     <script src="<?php echo BASEPATH . 'exchange/assets/js/exchange.js?v=1.10' ?>"></script>
-    <script src="<?php echo BASEPATH . 'exchange/assets/plugins/apexcharts/apexcharts.active.js?v=1' ?>"></script>
-
 
 </body>
 

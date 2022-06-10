@@ -66,11 +66,11 @@
 }
 
 .chart-content .control .range.active {
-    color: #00b746;
+    color: #00b746 !important;
 }
 
 .dropdown.active {
-    color: #00b746;
+    /* color: #00b746; */
 }
 
 .chart-content .control .dropdown {
@@ -102,6 +102,7 @@
     border-radius: 5px;
     color: #fff;
     padding: 10px;
+    z-index: 9;
 }
 
 .chart-content .range-dropdown .sub-range {
